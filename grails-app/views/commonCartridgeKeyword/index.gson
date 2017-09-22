@@ -1,0 +1,8 @@
+import hmh.mms.CommonCartridgeKeyword
+
+model {
+	Iterable<CommonCartridgeKeyword> commonCartridgeKeywordList
+}
+
+json tmpl.commonCartridgeKeyword(commonCartridgeKeywordList ?: [])
+

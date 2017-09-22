@@ -1,0 +1,7 @@
+import hmh.mms.Keyword
+
+model {
+	Keyword keyword
+}
+
+json tmpl.keyword(keyword)

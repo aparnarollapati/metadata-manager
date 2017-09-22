@@ -1,0 +1,8 @@
+import hmh.mms.Keyword
+
+model {
+	Iterable<Keyword> keywordList
+}
+
+json tmpl.keyword(keywordList ?: [])
+

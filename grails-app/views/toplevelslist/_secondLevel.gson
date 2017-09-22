@@ -1,0 +1,12 @@
+import hmh.mms.level.SecondLevel
+
+model {
+	SecondLevel secondLevel
+}
+
+json g.render(secondLevel){
+	
+    //version "toplevelslist"
+    //templateName "toplevelslist/_secondLevel.gson"
+    
+}

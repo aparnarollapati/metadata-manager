@@ -1,0 +1,14 @@
+<div class="panel panel-filled panel-c-white" ng-controller="CorrelationSourceController as CSRC">
+	<div class="panel-heading">
+		<a class="panel-toggle" ng-click="toggleCorrelationSource=!toggleCorrelationSource"><i class="fa" ng-class="{'fa-chevron-down': toggleCorrelationSource,'fa-chevron-right': !toggleCorrelationSource}"></i></a> 
+		<span data-inputclass="form-control" ng-click="CSRC.getUpdateCorrelationSourcesList(pc.currentFullProgram.products,correlationSource);" editable-select="correlationSource.product" e-name="id" e-ng-options="productItem as productItem.isbn+'-'+productItem.title for productItem in CSRC.updateCorrelationSourcesList" onbeforesave="CSRC.updateTCSourceISBN(correlationSource, $data)">{{correlationSource.product.isbn}}-{{correlationSource.product.title}}</span>     
+   
+		<span ng-show="correlationSource.product.grades[0]!= null">( Grades <span ng-model="correlationSource.product.grades" ng-repeat="gradeItem in correlationSource.product.grades | orderBy:'guiOrdering' track by $index" data-inputclass="form-control">{{gradeItem.grade}}<span ng-show="$index < correlationSource.product.grades.length - 1">, </span></span> )</span>
+        <a class="pull-right text-right" data-nodrag ng-click="CSRC.delete(correlationSource)"><i class="fa fa-times"></i></a> 
+		
+	</div>
+	 <div class="panel-body" ng-show="toggleCorrelationSource">
+       <ng-include src="'correlations/correlationtarget_renderer.html'"></ng-include>	
+       <ng-include src="'correlations/contentsource_renderer.html'"></ng-include>	
+	</div> 
+</div>

@@ -1,0 +1,24 @@
+<div class="panel panel-filled panel-c-info" ng-controller="GradeController as prgr">
+    <div class="panel-heading" >
+        <div class="panel-tools">
+	       <div class="btn-group pull-right text-right"> 
+	           <button class="btn btn-default btn-sm" type="button" ng-click="prc.delete(productItem)">
+	               <i class="fa fa-trash-o"></i> <span class="bold">Delete</span>
+	           </button>
+	       </div>
+        </div>
+        <a class="panel-toggle" ng-click="toggleProduct2=!toggleProduct2">
+        <i class="fa" ng-class="{'fa-chevron-down': toggleProduct2,'fa-chevron-right': !toggleProduct2}"></i></a>
+
+        <a href="#" ng-bind="productItem.isbn" editable-text="productItem.isbn" e-maxlength="13" e-pattern="([0-9]{13})" onbeforesave="prc.updateIsbn(productItem, $data)"></a>
+
+        <a href="#" ng-bind="productItem.title" editable-text="productItem.title" onbeforesave="prc.updateTitle(productItem, $data)"></a>
+
+        <span ng-show="productItem.grades[0] != null">( Grades <span ng-model="productItem.grades" ng-repeat="gradeItem in productItem.grades | orderBy:'guiOrdering' track by $index" data-inputclass="form-control" editable-select="gradeItem.grade" e-name="grade" e-ng-options="p.value as p.text for p in ::prgr.gradeOptions" onbeforesave="prgr.updateGradeGrade(gradeItem, $data)">{{gradeItem.grade}}<span ng-show="$index < productItem.grades.length - 1">, </span></span> )
+        </span>
+    </div>                     
+    <div class="panel-body" ng-show="toggleProduct2">
+        <!--  Component Specs were here -->
+        <ng-include src="'cpspecs_product_renderer.html'"></ng-include>
+    </div>
+</div>

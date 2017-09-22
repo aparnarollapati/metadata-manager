@@ -1,0 +1,7 @@
+import hmh.mms.Program
+
+model {
+    Iterable<Program> programList
+}
+
+json g.render(template: 'listprogram', collection: programList, var: 'program')

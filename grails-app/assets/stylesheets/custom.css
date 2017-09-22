@@ -1,0 +1,20 @@
+/*
+ * Override some of the default x-editable styles
+ */
+.editable-input.editable-has-buttons {width:auto}   *  This needs to be wider....
+.editable-empty, .editable-empty:hover, .editable-empty:focus, a.editable-empty, a.editable-empty:hover, a.editable-empty:focus{
+        color: #ffffff;
+}
+
+.nav-tabs {
+    background-color: #2f323b;
+    border: none;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    background-color: rgba(68, 70, 79, 0.8);
+    color: #ffffff;
+    border-width: 0 0 1px 0;
+}

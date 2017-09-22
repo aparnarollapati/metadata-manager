@@ -1,0 +1,8 @@
+import hmh.mms.level.ThirdLevel
+
+model {
+	Iterable<ThirdLevel> thirdLevelList
+}
+
+json tmpl.thirdLevel(thirdLevelList ?: [])
+

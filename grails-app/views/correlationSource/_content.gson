@@ -1,0 +1,10 @@
+import hmh.mms.Content
+
+model {
+	Content content
+}
+
+json g.render(content, [includes:['id', 'displayTitle', 'product']]){
+	
+	location "correlationSource"
+}

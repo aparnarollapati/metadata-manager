@@ -1,0 +1,7 @@
+<!-- Program strands list view and edit form -->
+<div class="angular-ui-tree-handle" ui-tree="treeProgramStrand">
+    <a href="#" ng-bind="strandItem.hierarchy" data-title="Enter hierarchy number" editable-number="strandItem.hierarchy" e-min="0" e-step="1" onbeforesave="st.updateHierarchy(strandItem, $data)"></a>
+    <a href="#" data-inputclass="form-control" editable-select="strandItem.title" e-name="title" e-ng-options="p.strand as p.strand for p in pc.strandMappingOptions" onbeforesave="st.updateTitle(strandItem, $data)">{{strandItem.title}}</a>                                  
+    <a class="pull-right" data-nodrag ng-click="st.delete(strandItem)">
+    <i class="fa fa-times"></i></a> 
+</div>

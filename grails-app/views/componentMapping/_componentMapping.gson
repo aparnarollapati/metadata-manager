@@ -1,0 +1,7 @@
+import hmh.mms.mapping.ComponentMapping
+
+model {
+	ComponentMapping componentMapping
+}
+
+json g.render(componentMapping, [excludes:['id', 'code']])

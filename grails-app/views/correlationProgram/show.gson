@@ -1,0 +1,7 @@
+import hmh.mms.Program
+
+model {
+	Program program
+}
+
+json tmpl.program(program)

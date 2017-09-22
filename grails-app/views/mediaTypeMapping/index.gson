@@ -1,0 +1,8 @@
+import hmh.mms.mapping.MediaTypeMapping
+
+model {
+	Iterable<MediaTypeMapping> mediaTypeMappingList
+}
+
+json tmpl.mediaTypeMapping(mediaTypeMappingList ?: [])
+

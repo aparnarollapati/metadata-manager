@@ -1,0 +1,75 @@
+<div class="panel panel-filled panel-c-white" ng-controller="ContentSourceController as cosc">
+	<div class="panel-heading">
+		<div class="panel-tools" ng-show="!editableCOSHMOFForm.$visible">
+			<div class="btn-group pull-right text-right">
+				<!-- button to show form -->
+				<button class="btn btn-default btn-sm" type="button"
+					ng-click="editableCOSHMOFForm.$show();cosc.getHMOFContentSources(correlationSource)">
+					<i class="fa fa-plus-square-o"></i> Add Source Resource
+				</button>
+			</div>
+		</div>
+        <span>
+            <a class="panel-toggle"
+			ng-show="correlationSource.contentSources[0]!=null"
+			ng-click="toggleCSCHMOF=!toggleCSCHMOF">
+            <i class="fa"
+			ng-class="{'fa-chevron-down': toggleCSCHMOF,'fa-chevron-right': !toggleCSCHMOF}"></i></a> Resources
+        </span>
+	</div>
+	<form class="form-horizontal" editable-form name="editableCOSHMOFForm"
+		ng-show="editableCOSHMOFForm.$visible"
+		ng-submit="cosc.addContentSource(correlationSource.id);editableCOSHMOFForm.$cancel();">
+
+		<div class="row">
+			<div class="col-md-5">
+				<div class="form-group required">
+					<label for="programItem.id" class="col-sm-4 control-label">Resources</label>
+					<div class="col-md-8">
+						<select name="newContentSource" class="form-control"
+							ng-model="cosc.newContentSource"
+							ng-options="contentItem[0] as contentItem[1] for contentItem in cosc.fullSResources"
+							required>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group required">
+					<label for="programItem.id" class="col-sm-4 control-label">Sort
+						Order</label>
+					<div class="col-md-8">
+						<input type="number" name="sortOrder" min="1" step="1"
+							max="9999"
+							class="form-control input-no-spinner input-fix-mousewheel2"
+							ng-model="cosc.sortOrder" required />
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="btn-group pull-right text-right"
+					ng-show="editableCOSHMOFForm.$visible">
+					<!-- buttons to submit / cancel form -->
+					<button type="submit" class="btn btn-primary">
+						<i class="fa pe-7s-plus"></i> Save
+					</button>
+					<button type="button" class="btn btn-default"
+						ng-click="editableCOSHMOFForm.$cancel()">
+						<i class="fa pe-7s-close-circle"></i> Cancel
+					</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div class="panel-body"
+		ng-show="toggleCSCHMOF && !editableCOSHMOFForm.$visible">
+
+		<ol ui-tree-nodes ng-model="correlationSource.contentSources">
+			<li ui-tree-node
+				ng-repeat="contentSource in correlationSource.contentSources | orderBy:['sortId'] track by $index"
+				ng-include="'correlations/contentsourceshmof_renderer.html'"
+				collapsed="true;" data-collapsed="true" />
+		</ol>
+	</div>
+</div>

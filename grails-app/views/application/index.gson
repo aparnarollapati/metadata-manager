@@ -1,0 +1,15 @@
+import grails.core.*
+import grails.util.*
+import grails.plugins.*
+import org.grails.core.artefact.*
+
+model {
+	GrailsApplication grailsApplication	
+	GrailsPluginManager pluginManager
+}
+
+json {
+	
+    appversion grailsApplication.metadata.getApplicationVersion()
+    
+}

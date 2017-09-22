@@ -1,0 +1,7 @@
+import hmh.mms.level.SecondLevel
+
+model {
+	SecondLevel secondLevel
+}
+
+json tmpl.secondLevel(secondLevel)

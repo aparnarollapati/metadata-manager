@@ -1,0 +1,68 @@
+<div class="panel panel-filled panel-c-primary"
+	ng-controller="StandardSetController as sset">
+	<div class="panel-heading">
+		<div class="panel-tools" ng-show="!editableSSETForm.$visible">
+			<div class="btn-group pull-right text-right">
+				<!-- button to show form -->
+				<button class="btn btn-default btn-sm" type="button"
+					ng-click="editableSSETForm.$show()">
+					<i class="fa fa-plus-square-o"></i> Add Standard Set
+				</button>
+			</div>
+		</div>
+		<span>
+			<a class="panel-toggle"
+			ng-show="pc.fullProgram[programItem.id].standardSets[0] != null"
+			ng-click="toggleSSET=!toggleSSET">
+			<i class="fa" ng-class="{'fa-chevron-down': toggleSSET,'fa-chevron-right': !toggleSSET}"></i></a>
+			Standard Sets
+		</span>
+	</div>
+	<form class="form-horizontal" editable-form name="editableSSETForm"
+		ng-show="editableSSETForm.$visible"
+		ng-submit="sset.addStandardSet(pc.fullProgram[programItem.id]);editableSSETForm.$cancel();">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group required">
+					<label class="col-sm-2 control-label">Name</label>
+					<div class="col-md-10">
+						<input type="text" id="newStandardSet" name="newStandardSet"
+							placeholder="" ng-pattern="sset.ssNameregex"
+							class="form-control input-no-spinner input-fix-mousewheel2"
+							ng-model="sset.newStandardSet" required> 
+
+							<span
+							ng-if="!editableSSETForm.newStandardSet.$valid"
+							style="color: white">Standard Set Name should end with
+							(.xml) </span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-2">
+				<div class="btn-group pull-right text-right"
+					ng-show="editableSSETForm.$visible">
+					<!-- buttons to submit / cancel form -->
+					<button type="submit" class="btn btn-accent">
+						<i class="fa pe-7s-plus"></i> Save
+					</button>
+					<button type="button" class="btn btn-default"
+						ng-click="editableSSETForm.$cancel()">
+						<i class="fa pe-7s-close-circle"></i> Cancel
+					</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel-body"
+		ng-show="toggleSSET">
+		<ol ui-tree-nodes
+			ng-model="pc.fullProgram[programItem.id].standardSets"
+			ng-show="!editableSSETForm.$visible">
+			<li ui-tree-node
+				ng-repeat="standardSetItem in pc.fullProgram[programItem.id].standardSets | orderBy:'name' track by $index"
+				ng-include="'standardset_renderer.html'" collapsed="true;"
+				data-collapsed="true" />
+		</ol>
+	</div>
+</div>

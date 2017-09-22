@@ -1,0 +1,90 @@
+ <div class="panel panel-filled panel-c-white" ng-controller="TopLevelController as tl">
+    <div class="panel-heading">
+        <div class="panel-tools" ng-show="!editableTLForm.$visible">
+            <div class="btn-group pull-right text-right">
+                <!-- button to show form -->
+                <button class="btn btn-default btn-sm" type="button"
+                    ng-click="editableTLForm.$show()">
+                    <i class="fa fa-plus-square-o"></i> Add Grade
+                </button>
+            </div>
+        </div>
+        <a class="panel-toggle" ng-show="pc.currentTopLevelsList[programItem.id].topLevels[0] != null"
+            ng-click="pc.accordian.toggleTL[programItem.id]=!pc.accordian.toggleTL[programItem.id]"><i
+            class="fa" ng-class="{'fa-chevron-down': pc.accordian.toggleTL[programItem.id],'fa-chevron-right': !pc.accordian.toggleTL[programItem.id]}"></i></a> Grades
+    </div>
+    <form class="form-horizontal" editable-form name="editableTLForm"
+        ng-show="editableTLForm.$visible"
+        ng-submit="tl.addTopLevel(pc.currentTopLevelsList[programItem.id]);editableTLForm.$cancel();">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group required">
+                    <label for="programItem.id" class="col-sm-4 control-label">Grade</label>
+                    <div class="col-md-8" ng-controller="GradeController as prgr">
+                        <select multiple name="grades" class="form-control"
+                            ng-model="tl.newGrades"
+                            ng-options="p.value as p.text for p in ::prgr.gradeOptions"
+                            required>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="programItem.id" class="col-sm-4 control-label">Title</label>
+                    <div class="col-md-8">
+                        <input type="text" placeholder="" class="form-control"
+                            ng-model="tl.newTitle">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group pull-right text-right"
+                    ng-show="editableTLForm.$visible">
+                    <!-- buttons to submit / cancel form -->
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa pe-7s-plus"></i> Save
+                    </button>
+                    <button type="button" class="btn btn-default"
+                        ng-click="editableTLForm.$cancel()">
+                        <i class="fa pe-7s-close-circle"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="contentItem.nonGradeLevel"
+                        class="col-sm-4 control-label">Non Grade Level</label>
+                    <div class="col-md-8">
+                        <input type="text" name="newNonGradeLevel"
+                            placeholder="(40 chars max)" class="form-control"
+                            ng-model="tl.newNonGradeLevel" maxlength="40" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="contentItem.nonGradeTitle"
+                        class="col-sm-4 control-label">Non Grade Title</label>
+                    <div class="col-md-8">
+                        <input type="text" name="newNonGradeTitle"
+                            placeholder="(50 chars max)" class="form-control"
+                            ng-model="tl.newNonGradeTitle" maxlength="50" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </form>
+    <div class="panel-body" ng-show="pc.accordian.toggleTL[programItem.id] && !editableTLForm.$visible">
+        <ol ui-tree-nodes ng-model="pc.currentTopLevelsList[programItem.id].topLevels" ng-controller="GradeController as prgr">
+            <li ui-tree-node
+                ng-repeat="topLevelItem in pc.currentTopLevelsList[programItem.id].topLevels | orderBy:'grades[0].guiOrdering' track by $index"
+                ng-include="'toplevel/toplevel_renderer.html'" collapsed="true;"
+                data-collapsed="true" />
+        </ol>
+    </div>
+</div>
+<!-- Top Levels End -->

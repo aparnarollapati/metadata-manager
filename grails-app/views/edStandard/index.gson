@@ -1,0 +1,8 @@
+import hmh.mms.EdStandard
+
+model {
+	Iterable<EdStandard> edStandardList
+}
+
+json tmpl.edStandard(edStandardList ?: [])
+

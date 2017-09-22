@@ -1,0 +1,8 @@
+import hmh.mms.LessonPlan
+
+model {
+	Iterable<LessonPlan> lessonPlanList
+}
+
+json tmpl.lessonPlan(lessonPlanList ?: [])
+

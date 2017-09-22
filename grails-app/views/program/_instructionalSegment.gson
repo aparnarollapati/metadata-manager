@@ -1,0 +1,9 @@
+import hmh.mms.InstructionalSegment
+
+model {
+	InstructionalSegment instructionalSegment
+}
+
+json g.render(instructionalSegment){
+id instructionalSegment.id;       //  Need to have this here or else the id is not returned at the content level nested under a program
+}

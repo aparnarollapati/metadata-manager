@@ -1,0 +1,14 @@
+<div class="panel panel-filled panel-c-white" ng-controller="CorrelationSourceController as CSRC">
+	<div class="panel-heading">
+			<a class="panel-toggle" ng-click="toggleCorrelationSourceHMOF=!toggleCorrelationSourceHMOF"><i class="fa" ng-class="{'fa-chevron-down': toggleCorrelationSourceHMOF,'fa-chevron-right': !toggleCorrelationSourceHMOF}"></i></a> 
+			<span ng-bind="correlationSource.product.isbn"  ></span> 
+			<span ng-bind="correlationSource.product.title"  ></span>
+
+	   <span data-inputclass="form-control" ng-click="CSRC.getUpdateProductComponent(pc.currentCorrelationsList[programItem.id].correlationSource,correlationSource.id);" editable-select="correlationSource.component" e-name="id" e-ng-options="component as (component.component + ' (' + component.componentType + ') ' + 'H' + component.componentHierarchy + '-TT' + component.toolType) for component in CSRC.fullComponents" onbeforesave="CSRC.updateTCSourceComponent(correlationSource, $data)">{{correlationSource.component.component}} ( {{correlationSource.component.componentType}} ) H {{correlationSource.component.componentHierarchy}} -TT {{correlationSource.component.toolType}}</span> 
+	   <a class="pull-right text-right" data-nodrag ng-click="CSRC.delete(correlationSource)"><i class="fa fa-times"></i></a>		
+	</div>
+	<div class="panel-body" ng-show="toggleCorrelationSourceHMOF">
+		<ng-include src="'correlations/correlationtargethmof_renderer.html'"></ng-include>	
+		<ng-include src="'correlations/contentsourcehmof_renderer.html'"></ng-include>	
+	</div> 
+</div>

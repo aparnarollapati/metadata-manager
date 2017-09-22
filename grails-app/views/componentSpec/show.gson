@@ -1,0 +1,6 @@
+import hmh.mms.ComponentSpec
+model {
+	ComponentSpec componentSpec
+}
+
+json tmpl.componentSpec(componentSpec)

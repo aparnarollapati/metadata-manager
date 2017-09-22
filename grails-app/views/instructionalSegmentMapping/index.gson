@@ -1,0 +1,8 @@
+import hmh.mms.mapping.InstructionalSegmentMapping
+
+model {
+	Iterable<InstructionalSegmentMapping> instructionalSegmentMappingList
+}
+
+json tmpl.instructionalSegmentMapping(instructionalSegmentMappingList ?: [])
+

@@ -1,0 +1,7 @@
+import hmh.mms.security.User
+
+model {
+	User user
+}
+
+json tmpl.user(user)

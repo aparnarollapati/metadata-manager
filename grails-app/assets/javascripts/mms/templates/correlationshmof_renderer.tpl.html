@@ -1,0 +1,78 @@
+<div class="panel panel-filled panel-c-white" ng-controller="CorrelationSourceController as csc">
+	<div class="panel-heading">
+		<div class="panel-tools" ng-show="!editableSPHMOFForm.$visible">
+			<div class="btn-group pull-right text-right">
+				<!-- button to show form -->
+				<button class="btn btn-default btn-sm" type="button"
+					ng-click="editableSPHMOFForm.$show();csc.getCurrentCorrelationSourcesList(pc.currentFullProgram.products);">
+					<i class="fa fa-plus-square-o"></i> Add Source Product
+				</button>
+			</div>
+		</div>
+			<span>
+				<a class="panel-toggle"
+				ng-show="pc.currentCorrelationsList[programItem.id].correlationSource[0]!=null"
+				ng-click="toggleCSourceHMOF=!toggleCSourceHMOF"><i
+				class="fa"
+				ng-class="{'fa-chevron-down': toggleCSourceHMOF,'fa-chevron-right': !toggleCSourceHMOF}"></i></a>
+				Source Products
+			</span>
+	</div>
+	<form class="form-horizontal" editable-form name="editableSPHMOFForm"
+		ng-show="editableSPHMOFForm.$visible"
+		ng-submit="csc.addSourceProduct(pc.currentCorrelationsList[programItem.id]);editableSPHMOFForm.$cancel();">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="form-group required">
+					<label for="programItem.id" class="col-sm-4 control-label">Source
+						Product</label>
+					<div class="col-md-8">
+						<select name="correlation" class="form-control"
+							ng-model="csc.newCorrelationSources"
+							ng-options="productItem.id as productItem.isbn+'-'+productItem.title for productItem in pc.fullProgram[programItem.id].products"
+							ng-change="csc.getProductComponents(pc.currentCorrelationsList[programItem.id].correlationSource);"
+							required>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group required">
+					<label for="programItem.id" class="col-sm-4 control-label">Product
+						Component</label>
+					<div class="col-md-8">
+						<select name="correlation" class="form-control"
+							ng-model="csc.newSProductComponent"
+							ng-options="component as (component.component + ' (' + component.componentType + ') ' + 'H' + component.componentHierarchy + '-TT' + component.toolType) for component in csc.fullComponents"
+							required>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="btn-group pull-right text-right"
+					ng-show="editableSPHMOFForm.$visible">
+					<!-- buttons to submit / cancel form -->
+					<button type="submit" class="btn btn-primary">
+						<i class="fa pe-7s-plus"></i> Save
+					</button>
+					<button type="button" class="btn btn-default"
+						ng-click="editableSPHMOFForm.$cancel()">
+						<i class="fa pe-7s-close-circle"></i> Cancel
+					</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel-body"
+		ng-show="toggleCSourceHMOF && !editableSPHMOFForm.$visible">
+
+		<ol ui-tree-nodes
+			ng-model="pc.currentCorrelationsList[programItem.id].correlationSource">
+			<li ui-tree-node
+				ng-repeat="correlationSource in pc.currentCorrelationsList[programItem.id].correlationSource track by $index"
+				ng-include="'correlations/correlationsourceshmof_renderer.html'"
+				collapsed="true;" data-collapsed="true" />
+		</ol>
+	</div>
+</div>

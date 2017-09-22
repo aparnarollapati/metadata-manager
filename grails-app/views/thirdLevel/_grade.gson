@@ -1,0 +1,11 @@
+import hmh.mms.Grade
+
+model {
+	Grade grade
+}
+
+// only show grades
+json g.render(grade, [includes:['id','grade','guiOrdering']]){
+    //version "toplevelslist"
+    //templateName "thirdlevel/_grade.gson"   
+}

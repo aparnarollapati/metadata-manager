@@ -1,0 +1,8 @@
+import hmh.mms.level.LevelKeyword
+
+model {
+	LevelKeyword levelKeyword
+}
+
+// only show keywords
+json g.render(levelKeyword, [includes:['id', 'keyword']])

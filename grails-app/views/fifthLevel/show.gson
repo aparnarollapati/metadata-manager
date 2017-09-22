@@ -1,0 +1,7 @@
+import hmh.mms.level.FifthLevel
+
+model {
+	FifthLevel fifthLevel
+}
+
+json tmpl.fifthLevel(fifthLevel)

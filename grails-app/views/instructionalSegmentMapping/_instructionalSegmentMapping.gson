@@ -1,0 +1,7 @@
+import hmh.mms.mapping.InstructionalSegmentMapping
+
+model {
+	InstructionalSegmentMapping instructionalSegmentMapping
+}
+
+json g.render(instructionalSegmentMapping, [excludes:['id']])

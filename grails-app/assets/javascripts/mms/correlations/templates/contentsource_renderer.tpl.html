@@ -1,0 +1,79 @@
+ <div class="panel panel-filled panel-c-white" ng-controller="ContentSourceController as cosc">
+    <div class="panel-heading">                                               
+        <div class="panel-tools" ng-show="!editableCOSForm.$visible">
+            <div class="btn-group pull-right text-right" >
+                <!-- button to show form -->
+                <button class="btn btn-default btn-sm" type="button"
+                    ng-click="editableCOSForm.$show();cosc.getContentSources(correlationSource)">
+                    <i class="fa fa-plus-square-o"></i> Add Source Resource
+                </button>
+            </div>
+        </div>
+        <span>
+            <a class="panel-toggle" ng-show="correlationSource.contentSources[0]!=null"
+            ng-click="toggleCSC=!toggleCSC">
+            <i class="fa" ng-class="{'fa-chevron-down': toggleCSC,'fa-chevron-right': !toggleCSC}"></i></a> Resources
+        </span>
+    </div> 
+     <form class="form-horizontal" editable-form name="editableCOSForm"
+        ng-show="editableCOSForm.$visible"
+        ng-submit="cosc.addContentSource(correlationSource.id);editableCOSForm.$cancel();">                                                       
+        <div class="row">                                                   
+            <div class="col-md-5">
+                <div class="form-group required">
+                    <label class="col-sm-4 control-label">Resources</label>
+                    <div class="col-md-8" >
+                        <select name="newContentSource" class="form-control"
+                            ng-model="cosc.newContentSource"
+                            ng-options="contentItem[0] as contentItem[1] for contentItem in cosc.fullResources track by contentItem[0]"
+                            required>
+                        </select>
+                    </div>
+                </div>
+            </div>  
+              <div class="col-md-5">
+                <div class="form-group required">
+                    <label for="Source Type" class="col-sm-4 control-label">Source Type</label>
+                    <div class="col-md-8" >
+                     <select name="cSourceType" class="form-control" ng-model="cosc.cSourceType" ng-options="p.value as p.text for p in cosc.sourceTypes | orderBy:'text'" required="">                       
+                     </select>
+                    </div>
+                </div>
+              </div>          
+             <div class="col-md-5">
+                <div class="form-group required">
+                    <label class="col-sm-4 control-label">Sort Order</label>
+                    <div class="col-md-8" >
+                        <input type="number" name="sortOrder" min="1" step="1"					    
+                        max="9999"
+                        class="form-control input-no-spinner input-fix-mousewheel2" ng-model="cosc.sortOrder" 
+                        required />
+                    </div>
+                </div>
+            </div>                                                      
+            <div class="col-md-2">
+                <div class="btn-group pull-right text-right"
+                    ng-show="editableCOSForm.$visible">
+                    <!-- buttons to submit / cancel form -->
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa pe-7s-plus"></i> Save
+                    </button>
+                    <button type="button" class="btn btn-default"
+                        ng-click="editableCOSForm.$cancel()">
+                        <i class="fa pe-7s-close-circle"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>                                                    
+    </form>
+  
+    <div class="panel-body" ng-show="toggleCSC && !editableCOSForm.$visible" ng-controller="ContentSourceController as cosc1">  
+                                    
+         <ol ui-tree-nodes ng-model="correlationSource.contentSources" >
+            <li ui-tree-node
+                ng-repeat="contentSource in correlationSource.contentSources | orderBy:['sortId'] track by $index"
+                ng-include="'correlations/contentsources_renderer.html'" collapsed="true;"
+                data-collapsed="true" />
+         </ol>
+    </div>
+</div>

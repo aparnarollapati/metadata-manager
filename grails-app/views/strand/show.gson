@@ -1,0 +1,7 @@
+import hmh.mms.Strand
+
+model {
+	Strand strand
+}
+
+json tmpl.strand(strand)

@@ -1,0 +1,13 @@
+import hmh.mms.Program
+
+model {
+	Program program
+}
+
+json g.render(program){
+
+    version "toplevelslist"
+    
+    //  Requested seperately when the Program Structure tab is clicked on -  
+    topLevels tmpl.'/toplevelslist/topLevel'(program.topLevels)
+}

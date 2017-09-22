@@ -1,0 +1,8 @@
+import hmh.mms.Strand
+
+model {
+	Iterable<Strand> strandList
+}
+
+json tmpl.strand(strandList ?: [])
+

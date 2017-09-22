@@ -1,0 +1,141 @@
+<div class="panel panel-filled panel-c-white">
+    <div class="panel-heading" >
+        <div class="panel-tools">
+           <div class="btn-group pull-right text-right"> 
+               <button class="btn btn-default btn-sm" type="button" ng-click="thirdlc.delete(thirdLevelItem)">
+                   <i class="fa fa-trash-o"></i> <span class="bold">Delete</span>
+               </button>
+           </div>
+        </div>
+        <a class="panel-toggle" ng-click="thirdlc.updateCurrentThirdLevel(thirdLevelItem.id);toggleThirdLevel=!toggleThirdLevel"><i class="fa" ng-class="{'fa-chevron-down':toggleThirdLevel ,'fa-chevron-right': !toggleThirdLevel}"></i></a>
+        <a href="#" editable-text="thirdLevelItem.hierarchy" onaftersave="thirdlc.updateHierarchy(thirdLevelItem, $data)">{{ thirdLevelItem.hierarchy || 'Add Hierarchy' }}</a> : 
+        <a href="#" editable-text="thirdLevelItem.title" onaftersave="thirdlc.updateTitle(thirdLevelItem, $data)">{{ thirdLevelItem.title || 'Add Title' }}</a>
+    </div>                     
+    <div class="panel-body" ng-show="toggleThirdLevel" ng-controller="ContentController as contentc">
+        <!-- Lesson Plans -->
+        <ng-include src="'thirdlevel/lessonplans_renderer.html'"></ng-include>        
+        <ng-include src="'thirdlevel/levelkeywords_renderer.html'"></ng-include>        
+        <ng-include src="'thirdlevel/levelstandards_renderer.html'"></ng-include>      
+        
+       
+        <div>
+             <!-- Content -->
+            <ng-include src="'thirdlevel/contents_renderer.html'"></ng-include>            
+           
+            <!--  Content Form -->
+		    <form class="form-horizontal" editable-form name="editableThirdContentForm" ng-show="editableThirdContentForm.$visible">
+		        <a name="thirdLevelContentForm"></a>
+		        <ng-include src="'thirdlevel/content_form_renderer.html'"></ng-include>
+		    </form>
+		    
+            <!-- Content Detail -->
+            <div class="panel panel-filled panel-c-accent" ng-show="pc.accordian.toggleThirdContentList[contentItem.id]" ng-repeat="contentItem in thirdlc.fullThirdLevel[thirdLevelItem.id].content | orderBy:'sortId'">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="panel-close"ng-click="pc.accordian.toggleThirdContentList[contentItem.id]=!pc.accordian.toggleThirdContentList[contentItem.id];pc.accordian.toggleThirdContentTable[thirdLevelItem.id]=!pc.accordian.toggleThirdContentTable[thirdLevelItem.id]"><i class="fa fa-times"></i></a>
+                    </div>
+                    <a class="panel-toggle" ng-click="pc.accordian.toggleThirdContentList[contentItem.id]=!pc.accordian.toggleThirdContentList[contentItem.id];pc.accordian.toggleThirdContentTable[thirdLevelItem.id]=!pc.accordian.toggleThirdContentTable[thirdLevelItem.id]"><i class="fa fa-chevron-down"></i></a>
+                    <!-- Add Reader Table -->
+                    <div class="table-responsive" ng-show="!editableThirdContentForm.$visible && !editableThirdLevelCRForm.$visible">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Lesson Plan</th>
+                                    <th>Instructional Segment</th>
+                                    <th>Strand</th>
+                                    <th>Sort ID</th>
+                                    <th>Display Title</th>
+                                    <th>Component</th>
+                                    <th class="text-right">edit</th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td>{{contentItem.lessonPlan.title}}</td>
+                                    <td>{{contentItem.segment.title}}</td>
+                                    <td>{{contentItem.strand.title}}</td>
+                                    <td>{{contentItem.sortId}}</td>
+                                    <td>{{contentItem.displayTitle}}</td>
+                                    <td>{{contentItem.component.component}}</td>
+                                    <td class="text-right"><a href="#thirdLevelContentForm" ng-click="contentc.updateCurrentFullContentId('edit',contentItem.id, thirdLevelItem);editableThirdContentForm.$show()"><i class="fa fa-edit"></i></a></td>			       
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Add Reader Table End -->
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-filled">
+                        <div class="panel-body">
+                            <!-- Reader - only one or none allowed -->
+                            <ng-include src="'reader_form_renderer.html'"></ng-include>                            
+                            <ng-include src="'ed_form_renderer.html'"></ng-include>                            
+                            <ng-include src="'keywords_renderer.html'"></ng-include>                            
+                            <ng-include src="'commoncartridgekeywords_renderer.html'"></ng-include>
+                            <ng-include src="'standards_renderer.html'"></ng-include>
+                            <ng-include src="'edstandards_renderer.html'"></ng-include>                           
+                            <ng-include src="'mywritesmarts_renderer.html'"></ng-include>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Content Detail End --> 
+        </div>
+        <!-- Content End -->
+            
+            <!-- Fourth Levels, we get the name from FourthLevelScope value at the program level  -->
+            <div class="panel panel-filled panel-c-white" ng-controller="FourthLevelController as fourthlc"  ng-show="pc.currentFullProgram.fourthLevelScope != null && pc.currentFullProgram.fourthLevelScope != ''">
+                <div class="panel-heading" >
+                    <div class="panel-tools" ng-show="!editablefourthlForm.$visible">
+                        <div class="btn-group pull-right text-right">
+                            <!-- button to show form -->
+                            <!-- Only allow them to add in the next level down if they have set it's scope value at the program level  -->
+                            <button class="btn btn-default btn-sm" type="button" ng-click="editablefourthlForm.$show()">
+                                <i class="fa fa-plus-square-o"></i> Add {{pc.currentFullProgram.fourthLevelScope}}
+                            </button>
+                        </div>
+                    </div>
+                    <span ng-show="pc.currentFullProgram.fourthLevelScope != null"><a ng-show="thirdlc.fullThirdLevel[thirdLevelItem.id].fourthLevels[0] != null" class="panel-toggle" ng-click="pc.accordian.toggleFourthL[thirdLevelItem.id]=!pc.accordian.toggleFourthL[thirdLevelItem.id]"><i class="fa" ng-class="{'fa-chevron-down':pc.accordian.toggleFourthL[thirdLevelItem.id] ,'fa-chevron-right': !pc.accordian.toggleFourthL[thirdLevelItem.id]}"></i></a> 
+                    {{pc.currentFullProgram.fourthLevelScope}}s
+                    </span>
+                </div>  
+                <form class="form-horizontal" editable-form name="editablefourthlForm" ng-show="editablefourthlForm.$visible" ng-submit="fourthlc.addFourthLevel(thirdLevelItem);editablefourthlForm.$cancel();">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group required">
+                                <label for="hierarchy" class="col-sm-6 control-label">Hierarchy</label>
+                                <div class="col-md-6">
+                                    <input type="number" min="0" step="1" placeholder="" class="form-control input-no-spinner input-fix-mousewheel2" ng-model="fourthlc.newHierarchy" required/>
+                                </div>
+                            </div> 
+                        </div>  
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="title" class="col-sm-4 control-label">Title</label>
+                                <div class="col-md-8">                     
+                                    <input name="newTitle" class="form-control" ng-model="fourthlc.newTitle" /> 
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="col-md-4">
+                            <div class="btn-group pull-right text-right" ng-show="editablefourthlForm.$visible">
+                                <!-- buttons to submit / cancel form -->
+                                <button type="submit" class="btn btn-accent"><i class="fa pe-7s-plus"></i> Save</button>
+                                <button type="button" class="btn btn-default" ng-click="editablefourthlForm.$cancel()"><i class="fa pe-7s-close-circle"></i> Cancel</button>
+                            </div>
+                         </div>    
+                    </div>
+                </form>  
+                <!-- Only offer the next level if the level scope for it has been defined -->
+                <div class="panel-body" ng-show="pc.accordian.toggleFourthL[thirdLevelItem.id] && thirdlc.fullThirdLevel[thirdLevelItem.id].fourthLevels[0] != null && !editablefourthlForm.$visible && pc.currentFullProgram.fourthLevelScope != null && pc.currentFullProgram.fourthLevelScope != ''">
+                    <ol ui-tree-nodes ng-model="thirdlc.fullThirdLevel[thirdLevelItem.id].fourthLevels">
+                        <li ui-tree-node ng-repeat="fourthLevelItem in thirdlc.fullThirdLevel[thirdLevelItem.id].fourthLevels | orderBy:'hierarchy' track by $index"" ng-include="'fourthlevel/fourthlevel_renderer.html'" collapsed="true;" data-collapsed="true"/>
+                    </ol>
+                </div>
+            <!-- Fourth Levels End -->
+        </div>
+    </div>
+<!-- Third levels End -->
+</div>

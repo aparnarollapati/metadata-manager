@@ -1,0 +1,7 @@
+<!-- Program instructional segments list view and edit form -->
+<div class="angular-ui-tree-handle" ui-tree="treeProgramSegment">
+    <!-- Both fields required so ng-bind and onbeforesave is fine -->
+    <a href="#" ng-bind="segmentItem.hierarchy" editable-number="segmentItem.hierarchy" e-min="0" e-step="1" onbeforesave="is.updateHierarchy(segmentItem, $data)"></a>
+    <span data-inputclass="form-control" editable-select="segmentItem.title" e-name="title" e-ng-options="p.instructionalSegment as p.instructionalSegment for p in instructionalSegmentMappingOptions" onbeforesave="is.updateTitle(segmentItem, $data)">{{segmentItem.title}}</span>     
+    <a class="pull-right" data-nodrag ng-click="is.delete(segmentItem)"><i class="fa fa-times"></i></a> 
+</div>

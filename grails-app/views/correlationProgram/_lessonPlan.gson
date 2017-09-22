@@ -1,0 +1,7 @@
+import hmh.mms.LessonPlan
+
+model {
+	LessonPlan lessonPlan
+}
+
+json g.render(lessonPlan, [includes:['id','duration','lessonPlanId','sortId', 'title']])

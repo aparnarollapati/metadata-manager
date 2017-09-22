@@ -1,0 +1,7 @@
+import hmh.mms.level.TopLevel
+
+model {
+	TopLevel topLevel
+}
+
+json g.render(topLevel, [excludes:['program']])

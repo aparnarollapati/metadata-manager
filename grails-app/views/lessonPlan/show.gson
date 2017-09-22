@@ -1,0 +1,7 @@
+import hmh.mms.LessonPlan
+
+model {
+	LessonPlan lessonPlan
+}
+
+json tmpl.lessonPlan(lessonPlan)

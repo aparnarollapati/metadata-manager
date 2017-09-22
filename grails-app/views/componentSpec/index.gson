@@ -1,0 +1,7 @@
+import hmh.mms.ComponentSpec
+model {
+	Iterable<ComponentSpec> componentSpecList
+}
+
+json tmpl.componentSpec(componentSpecList ?: [])
+

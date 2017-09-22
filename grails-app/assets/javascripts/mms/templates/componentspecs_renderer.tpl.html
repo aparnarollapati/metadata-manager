@@ -1,0 +1,106 @@
+        <!-- Component Spec-->
+<div class="panel panel-filled panel-c-info" ng-controller="ComponentSpecController as prcs">
+    <div class="panel-heading" >
+        <div class="panel-tools" ng-show="!editablePRCLForm.$visible">
+            <div class="btn-group pull-right text-right">
+                <!-- button to show form -->
+                <button class="btn btn-default btn-sm" type="button" ng-click="editablePRCLForm.$show()">
+                    <i class="fa fa-plus-square-o"></i>  Add Component
+                </button>
+            </div>
+        </div>
+        <span><a class="panel-toggle" ng-show="pc.fullProgram[programItem.id].components[0] != null" 
+        ng-click="toggleComponent=!toggleComponent">
+        <i class="fa" ng-class="{'fa-chevron-down': toggleComponent,'fa-chevron-right': !toggleComponent}"></i></a> Components </span>
+    </div>   
+    <!-- Note : a very similar form for creating components exists in product_renderer.tpl.html so any updates should also be made there -->
+    <form class="form-horizontal" editable-form name="editablePRCLForm" ng-show="editablePRCLForm.$visible" ng-submit="prcs.addComponentSpec(pc.fullProgram[programItem.id]);editablePRCLForm.$cancel();">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group required">
+                    <label class="col-sm-6 control-label">Component</label>
+                    <div class="col-md-6">                      
+                        <select name="component" tabindex="1" class="form-control" ng-model="prcs.component" ng-options="c.component as c.component for c in pc.componentMappingOptions" required/>  
+                    </div>
+                </div> 
+            </div>  
+            <div class="col-md-4">
+                <div class="form-group required">
+                    <label class="col-sm-6 control-label">Hierarchy</label>
+                    <div class="col-md-6">
+                        <input type="number" tabindex="2" min="0" max="99" step="1" class="form-control input-no-spinner input-fix-mousewheel2" ng-model="prcs.componentHierarchy" required/>
+                    </div>
+                </div> 
+            </div>
+            <div class="col-md-4">
+                 <div class="btn-group pull-right text-right" ng-show="editablePRCLForm.$visible">
+                    <!-- buttons to submit / cancel form -->
+                    <button type="submit" class="btn btn-primary"><i class="fa pe-7s-plus" tabindex="101"></i> Save
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="editablePRCLForm.$cancel()"><i class="fa pe-7s-close-circle" tabindex="102"></i> Cancel</button>
+               </div>
+            </div>  
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group required">
+                    <label class="col-sm-6 control-label">Component Type</label>
+                    <div class="col-md-6">
+                        <select name="componentType" class="form-control" tabindex="3" ng-model="prcs.componentType" ng-options="c.componentType as c.componentType for c in pc.componentTypeMappingOptions" required/>  
+                    </div>
+                </div> 
+            </div>
+            <div class="col-md-4">
+                <div class="form-group required">
+                    <label class="col-sm-6 control-label">Categorization</label>
+                    <div class="col-md-6">
+                        <select name="categorization" class="form-control" tabindex="4" ng-model="prcs.categorization" ng-options="c.categorization as c.categorization for c in pc.categorizationMappingOptions" required/>  
+                    </div>
+                </div> 
+            </div>  
+            <div class="col-md-4"></div>    
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group required">
+                    <label class="col-sm-6 control-label">Tool Type</label>
+                    <div class="col-md-6">
+                       <!-- HMOF doesn't allow 0 -->
+                       <select ng-show="pc.fullProgram[programItem.id].platform == 'HMOF'"  name="toolType" class="form-control" tabindex="5" ng-model="prcs.toolType" ng-options="c.value as c.text for c in ::prcs.toolTypeOptions | filter:{ HMOF : 'true' }" required/>
+                       <!-- TCK6 allows 0 -->
+                       <select ng-show="pc.fullProgram[programItem.id].platform == 'TCK6'" name="toolType" class="form-control" tabindex="5" ng-model="prcs.toolType" ng-options="c.value as c.text for c in ::prcs.toolTypeOptions | filter:{ TCK6 : 'true' }" required/>     
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </form>      
+    <div class="panel-body" ng-show="toggleComponent && pc.fullProgram[programItem.id].components[0] != null && !editablePRCLForm.$visible">      
+       <div class="table-responsive" >
+            <table datatable="ng" dt-options="prcs.dtOptions" dt-column-defs="prcs.dtColumnDefs" id="componentTable" class="table table-striped table-hover" ng-show="pc.fullProgram[programItem.id].components[0] != null">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Hierarchy</th>
+                        <th>Type</th>
+                        <th>Categorization</th>
+                        <th>Tool Type</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-model="pc.fullProgram[programItem.id].components" ng-repeat="componentItem in pc.fullProgram[programItem.id].components | orderBy:'componentHierarchy' track by $index" >
+
+                    <td><span data-inputclass="form-control" editable-select="componentItem.component" e-name="component" e-ng-options="c.component as c.component for c in pc.componentMappingOptions" onbeforesave="prcs.updateComponentComponent(componentItem, $data)">{{componentItem.component}}</span></td>
+                    <td><a href="#" ng-bind="componentItem.componentHierarchy" editable-number="componentItem.componentHierarchy" e-min="0" e-step="1" onbeforesave="prcs.updateComponentHierarchy(componentItem, $data)"></a></td>
+                    <td><span data-inputclass="form-control" editable-select="componentItem.componentType" e-name="componentType" e-ng-options="c.componentType as c.componentType for c in pc.componentTypeMappingOptions" onbeforesave="prcs.updateComponentComponentType(componentItem, $data)">{{componentItem.componentType}}</span></td>
+                    <td><span data-inputclass="form-control" editable-select="componentItem.categorization" e-name="categorization" e-ng-options="c.categorization as c.categorization for c in pc.categorizationMappingOptions" onbeforesave="prcs.updateComponentCategorization(componentItem, $data)">{{componentItem.categorization}}</span></td>
+                    <td ng-if="pc.fullProgram[programItem.id].platform == 'HMOF'" ><span data-inputclass="form-control" editable-select="componentItem.toolType" e-ng-options="c.value as c.text for c in ::prcs.toolTypeOptions | filter:{ HMOF : 'true' }" onbeforesave="prcs.updateComponentToolType(componentItem, $data)">{{ (prcs.toolTypeOptions | filter:{value: componentItem.toolType})[0].text || 'Not set' }}</span></td>
+                    <td ng-if="pc.fullProgram[programItem.id].platform == 'TCK6'" ><span data-inputclass="form-control" editable-select="componentItem.toolType" e-ng-options="c.value as c.text for c in ::prcs.toolTypeOptions | filter:{ TCK6 : 'true' }" onbeforesave="prcs.updateComponentToolType(componentItem, $data)">{{ (prcs.toolTypeOptions | filter:{value: componentItem.toolType})[0].text || 'Not set' }}</span></td>                                                                                                                                                                                                           
+                    <td><a class="pull-right" data-nodrag ng-click="prcs.delete(componentItem)"><i class="fa fa-times"></i></a></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

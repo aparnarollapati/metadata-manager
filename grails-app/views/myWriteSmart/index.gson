@@ -1,0 +1,8 @@
+import hmh.mms.MyWriteSmart
+
+model {
+	Iterable<MyWriteSmart> myWriteSmartList
+}
+
+json tmpl.myWriteSmart(myWriteSmartList ?: [])
+

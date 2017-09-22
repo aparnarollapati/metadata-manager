@@ -1,0 +1,20 @@
+import hmh.mms.Program
+
+model {
+	Program program
+}
+
+json g.render(program){
+
+    version "1.0"
+    
+    // This is the default tab so it should be fetched straight away
+    segments tmpl.instructionalSegment(program.segments)
+    
+    //  If we want to improve performance more we could request each of these as their tab is clicked on rather than fetching now.
+    strands tmpl.strand(program.strands)
+    components tmpl.componentSpec(program.components)
+    products tmpl.product(program.products)
+	standardSets tmpl.standardSet(program.standardSets)    
+   
+}

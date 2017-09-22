@@ -1,0 +1,70 @@
+<div class="panel panel-filled panel-c-danger"
+    ng-controller="StrandController as st">
+    <div class="panel-heading">
+        <div class="panel-tools" ng-show="!editableStrandForm.$visible">
+            <div class="btn-group pull-right text-right">
+                <!-- button to show form -->
+                <button class="btn btn-default btn-sm" type="button"
+                    ng-click="editableStrandForm.$show()">
+                    <i class="fa fa-plus-square-o"></i> Add Strand Type
+                </button>
+            </div>
+        </div>
+        <span>
+            <a class="panel-toggle" ng-show="pc.fullProgram[programItem.id].strands[0] != null"
+            ng-click="toggleStrand=!toggleStrand">
+            <i class="fa" ng-class="{'fa-chevron-down': toggleStrand,'fa-chevron-right': !toggleStrand}"></i></a> Strand Types
+        </span>
+    </div>
+    <form class="form-horizontal" editable-form name="editableStrandForm"
+        ng-show="editableStrandForm.$visible"
+        ng-submit="st.addStrand(pc.fullProgram[programItem.id]);editableStrandForm.$cancel();">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label">Title</label>
+                    <div class="col-md-10">
+                        <select name="strand" class="form-control"
+                            ng-model="st.newTitle"
+                            ng-options="c.strand as c.strand for c in pc.strandMappingOptions" 
+                            required />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label">Hierarchy</label>
+                    <div class="col-md-10">
+                        <input type="number" min="0" max="999" step="1"
+                            class="form-control input-no-spinner input-fix-mousewheel2"
+                            ng-model="st.newHierarchy"
+                            required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group pull-right text-right"
+                    ng-show="editableStrandForm.$visible">                    
+                    <button type="submit" class="btn btn-accent">
+                        <i class="fa pe-7s-plus"></i> Save
+                    </button>
+                    <button type="button" class="btn btn-default"
+                        ng-click="editableStrandForm.$cancel()">
+                        <i class="fa pe-7s-close-circle"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="panel-body"
+        ng-show="toggleStrand">
+        <ol ui-tree-nodes ng-model="pc.fullProgram[programItem.id].strands"
+            ng-show="!editableStrandForm.$visible">
+            <li ui-tree-node
+                ng-repeat="strandItem in pc.fullProgram[programItem.id].strands | orderBy:'hierarchy' track by $index"
+                " ng-include="'strand_renderer.html'" collapsed="true;"
+                data-collapsed="true" />
+        </ol>
+    </div>
+</div>
+            

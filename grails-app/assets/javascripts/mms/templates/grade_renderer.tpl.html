@@ -1,0 +1,6 @@
+<!-- Program products grades list view -->
+<div class="angular-ui-tree-handle" ui-tree="treeProgramProducts">
+    <span data-inputclass="form-control" editable-select="gradeItem.grade" e-name="grade" e-ng-options="p.value as p.text for p in prgr.gradeOptions" onbeforesave="prgr.updateGradeGrade(gradeItem, $data)">{{gradeItem.grade}}</span>                                  
+    <a class="pull-right" data-nodrag ng-click="remove(this);prc.update(productItem)">
+    <i class="fa fa-times"></i></a>
+</div>

@@ -1,0 +1,15 @@
+import hmh.mms.correlation.CorrelationSource
+
+model {
+	CorrelationSource correlationSource
+}
+
+json g.render(correlationSource, [excludes:['program', 'product', 'component']]){
+	version "correlationslist"
+    templateName "correlationslist/_correlationSource.gson" 
+	product tmpl.'/correlationslist/product'(correlationSource.product) 
+	component tmpl.'/correlationslist/componentSpec'(correlationSource.component)
+	correlationTargets tmpl.'/correlationslist/correlationTarget'(correlationSource.targets?: [])	
+	contentSources tmpl.'/correlationslist/contentSource'(correlationSource.resources?: [])
+	
+}

@@ -1,0 +1,7 @@
+import hmh.mms.correlation.ContentSource
+
+model {
+	ContentSource contentSource
+}
+
+json tmpl.contentSource(contentSource)

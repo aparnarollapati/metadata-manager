@@ -1,0 +1,8 @@
+import hmh.mms.Product
+
+model {
+	Iterable<Product> productList
+}
+
+json tmpl.product(productList ?: [])
+

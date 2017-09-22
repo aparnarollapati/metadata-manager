@@ -1,0 +1,8 @@
+import hmh.mms.level.TopLevel
+
+model {
+	Iterable<TopLevel> topLevelList
+}
+
+json tmpl.topLevel(topLevelList ?: [])
+

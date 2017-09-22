@@ -1,0 +1,7 @@
+import hmh.mms.level.SecondLevel
+
+model {
+	SecondLevel secondLevel
+}
+
+json g.render(secondLevel, [excludes:['content', 'grades', 'keywords', 'program', 'standards', 'topLevel']])

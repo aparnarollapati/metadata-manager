@@ -1,0 +1,281 @@
+/*
+ *= require /animate.css/animate
+ *= require /bootstrap/css/bootstrap.min
+ *= require /angular-xeditable/xeditable
+ *= require /datatables.net-bs/dataTables.bootstrap
+ *= require /ng-notify/ng-notify
+ *= require_self
+ */
+
+.form-group.required .control-label:after { 
+    color: #DB524B;
+    content: " (required)";
+}
+
+/* remove the spinner on input type of number */
+.input-no-spinner::-webkit-outer-spin-button, .input-no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Angular UI Tree - css taken from the similar nestable example */
+.angular-ui-tree {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 20px;
+}
+
+.angular-ui-tree-nodes {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.angular-ui-tree-nodes .angular-ui-tree-nodes {
+    padding-left: 30px;
+}
+
+.angular-ui-tree-collapsed .angular-ui-tree-hidden .angular-ui-tree-nodes {
+    display: none;
+}
+
+.angular-ui-tree-node,
+.angular-ui-tree-empty,
+.angular-ui-tree-placeholder {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    min-height: 20px;
+    line-height: 20px;
+}
+
+.angular-ui-tree-handle {
+    margin: 5px 0;
+    padding: 10px 10px;
+    color: #949ba2;
+    text-decoration: none;
+    border: 1px solid #3d404c;
+    background-color: rgba(68, 70, 79, 0.5);
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.angular-ui-tree-handle span {
+    font-weight: bold;
+}
+
+.angular-ui-tree-handle:hover {
+    background-color: rgba(68, 70, 79, 0.8);
+    cursor: pointer;
+}
+
+.angular-ui-tree-node > button {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    float: left;
+    width: 25px;
+    height: 20px;
+    margin: 10px 0;
+    padding: 0;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    border: 0;
+    background: transparent;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    font-weight: bold;
+}
+
+.angular-ui-tree-node > button:before {
+    content: '+';
+    display: block;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    text-indent: 0;
+}
+
+.angular-ui-tree-node > button[data-action="collapse"]:before {
+    content: '-';
+}
+
+.angular-ui-tree-placeholder,
+.angular-ui-tree-empty {
+    margin: 5px 0;
+    padding: 0;
+    min-height: 30px;
+    background: transparent;
+    border: 1px dashed #535868;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.angular-ui-tree-empty {
+    border: 1px dashed #3d404c;
+    min-height: 100px;
+    background-color: transparent;
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+}
+
+.angular-ui-tree-drag {
+    position: absolute;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.angular-ui-tree-drag > .angular-ui-tree-node .angular-ui-tree-handle {
+    margin-top: 0;
+}
+
+.angular-ui-tree-drag .angular-ui-tree-handle {
+    -webkit-box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* System notifications ng-notify */
+.ngn {
+  color: #FFF;
+  cursor: default;
+  display: none;
+  font-size: 1.3em;
+  left: 0;
+  opacity: 1;
+  padding: 25px 80px;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 9999; }
+
+.ngn-top {
+  top: 0; }
+
+.ngn-bottom {
+  bottom: 0; }
+
+.ngn-dismiss {
+  background-color: #333;
+  border-radius: 15px;
+  box-shadow: inset 2px 2px 7px 2px #000;
+  color: #DDD;
+  cursor: pointer;
+  display: none;
+  font-size: 1.25em;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  opacity: 0.2;
+  position: absolute;
+  right: 45px;
+  text-shadow: 1px 1px 5px #000;
+  width: 30px; }
+
+.ngn-sticky .ngn-dismiss {
+  display: block; }
+
+.ngn-dismiss:hover {
+  background-color: #000; }
+
+.ngn-dismiss:active {
+  background-color: #666; }
+
+/* Reduce notification size for mobile */
+@media only screen and (max-width: 480px) {
+  .ngn {
+    font-size: 1em;
+    padding: 12px 25px; }
+
+  .ngn-dismiss {
+    font-size: 1em;
+    height: 20px;
+    line-height: 20px;
+    right: 5px;
+    top: 5px;
+    width: 20px; } }
+/* Themes - Default - Pure */
+.ngn-info {
+  background-color: #0e90d2; }
+
+.ngn-error {
+  background-color: #dd514c; }
+
+.ngn-success {
+  background-color: #5eb95e; }
+
+.ngn-warn {
+  background-color: #f37b1d; }
+
+.ngn-grimace {
+  background-color: #8058a5; }
+
+/* Themes - Prime */
+.ngn-prime.ngn-info {
+  background-color: #0033cc; }
+
+.ngn-prime.ngn-error {
+  background-color: #ff0000; }
+
+.ngn-prime.ngn-success {
+  background-color: #00cc00; }
+
+.ngn-prime.ngn-warn {
+  background-color: #ff9900; }
+
+.ngn-prime.ngn-grimace {
+  background-color: #660099; }
+
+/* Themes - Pastel */
+.ngn-pastel.ngn-info {
+  background-color: #7EA7D8; }
+
+.ngn-pastel.ngn-error {
+  background-color: #F6989D; }
+
+.ngn-pastel.ngn-success {
+  background-color: #82CA9D; }
+
+.ngn-pastel.ngn-warn {
+  background-color: #FDC68A; }
+
+.ngn-pastel.ngn-grimace {
+  background-color: #A187BE; }
+
+/* Themes - Pitchy */
+.ngn-pitchy.ngn-info {
+  background-color: #003471; }
+
+.ngn-pitchy.ngn-error {
+  background-color: #9E0B0F; }
+
+.ngn-pitchy.ngn-success {
+  background-color: #007236; }
+
+.ngn-pitchy.ngn-warn {
+  background-color: #A36209; }
+
+.ngn-pitchy.ngn-grimace {
+  background-color: #440E62; }
+
+/*# sourceMappingURL=ng-notify.css.map */
+
+//  Override for Safari display issue
+.form-control {
+-webkit-appearance:none;
+}

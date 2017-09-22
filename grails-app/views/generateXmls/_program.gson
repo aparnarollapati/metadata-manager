@@ -1,0 +1,12 @@
+import hmh.mms.Program
+
+model {
+	Program program
+}
+
+json g.render(program, [includes:['id','state','name','platform','discipline','copyrightYear']]){
+	
+	generateXmls tmpl.generateXmls(program.generateXmls) 
+	products tmpl.product(program.products)
+
+}

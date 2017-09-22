@@ -1,0 +1,7 @@
+import hmh.mms.Grade
+
+model {
+	Grade grade
+}
+
+json g.render(grade, [includes:['grade']])

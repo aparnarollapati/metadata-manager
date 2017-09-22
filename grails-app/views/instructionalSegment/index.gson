@@ -1,0 +1,8 @@
+import hmh.mms.InstructionalSegment
+
+model {
+	Iterable<InstructionalSegment> instructionalSegmentList
+}
+
+json tmpl.instructionalSegment(instructionalSegmentList ?: [])
+

@@ -1,0 +1,18 @@
+import hmh.mms.level.FifthLevel
+
+model {
+	FifthLevel fifthLevel
+}
+
+json g.render(fifthLevel, [excludes:['fourthLevel', 'fifthLevel']]){
+	//version "toplevelslist"
+	//templateName "fifthlevel/_fifthLevel.gson"
+	
+	lessonPlans tmpl.lessonPlan(fifthLevel.lessonPlans)
+	keywords tmpl.levelKeyword(fifthLevel.keywords)
+	standards tmpl.levelStandard(fifthLevel.standards)
+	
+	//  When we make the requests more granular we can use this
+	content tmpl.content(fifthLevel.content)
+	
+}

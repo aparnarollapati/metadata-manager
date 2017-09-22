@@ -1,0 +1,8 @@
+import hmh.mms.correlation.CorrelationTarget
+
+model {
+	Iterable<CorrelationTarget> correlationTargetList
+}
+
+json tmpl.correlationTarget(correlationTargetList ?: [])
+

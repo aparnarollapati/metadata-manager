@@ -1,0 +1,10 @@
+import hmh.mms.ComponentSpec
+
+model {
+	ComponentSpec componentSpec
+}
+
+json g.render(componentSpec, [excludes:['program'], includes:['id', 'component','componentType','componentHierarchy','toolType']]){
+	
+	templateName "correlationslist/_componentSpec.gson"
+}

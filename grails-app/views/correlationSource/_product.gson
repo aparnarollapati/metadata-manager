@@ -1,0 +1,15 @@
+import hmh.mms.Product
+
+model {
+	Product product
+}
+
+json g.render(product, [excludes:['program'],includes:['id','title', 'isbn']]){
+    
+	
+	templateName "correlation/_product.gson" 
+    
+    id product.id
+    grades      tmpl.grade(product.grades)
+    components  tmpl.componentSpec(product.components) 
+}

@@ -1,0 +1,7 @@
+import hmh.mms.Program
+
+model {
+	Program program
+}
+
+json g.render(program, [includes:['id','discipline','state','name','copyrightYear','platform']])

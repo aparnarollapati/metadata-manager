@@ -1,0 +1,7 @@
+import hmh.mms.InstructionalSegment
+
+model {
+	InstructionalSegment instructionalSegment
+}
+
+json g.render(instructionalSegment, [excludes:['program']])

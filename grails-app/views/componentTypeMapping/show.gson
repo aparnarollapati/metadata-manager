@@ -1,0 +1,7 @@
+import hmh.mms.mapping.ComponentTypeMapping
+
+model {
+	ComponentTypeMapping componentTypeMapping
+}
+
+json tmpl.componentTypeMapping(componentTypeMapping)

@@ -1,0 +1,21 @@
+import hmh.mms.level.ThirdLevel
+
+model {
+	ThirdLevel thirdLevel
+}
+
+json g.render(thirdLevel, [excludes:['secondLevel']]){
+
+    //version "toplevelslist"
+    //templateName "thirdlevel/_thirdLevel.gson"     
+        
+    lessonPlans tmpl.lessonPlan(thirdLevel.lessonPlans)    
+    keywords tmpl.levelKeyword(thirdLevel.keywords)
+    standards tmpl.levelStandard(thirdLevel.standards)
+    
+    //  When we make the requests more granular we can use this
+    content tmpl.content(thirdLevel.content)      
+
+    //  Request the detailed version of these seperately
+    fourthLevels tmpl.fourthLevel(thirdLevel.fourthLevels)   
+}

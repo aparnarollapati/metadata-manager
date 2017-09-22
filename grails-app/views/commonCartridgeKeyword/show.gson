@@ -1,0 +1,7 @@
+import hmh.mms.CommonCartridgeKeyword
+
+model {
+	CommonCartridgeKeyword commonCartridgeKeyword
+}
+
+json tmpl.commonCartridgeKeyword(commonCartridgeKeyword)

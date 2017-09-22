@@ -1,0 +1,13 @@
+import hmh.mms.level.FifthLevel
+
+model {
+	FifthLevel fifthLevel
+}
+
+json g.render(fifthLevel){
+	
+	content tmpl.content(fifthLevel.content)
+	lessonPlans tmpl.lessonPlan(fifthLevel.lessonPlans)
+	keywords tmpl.levelKeyword(fifthLevel.keywords)
+	standards tmpl.levelStandard(fifthLevel.standards)
+}

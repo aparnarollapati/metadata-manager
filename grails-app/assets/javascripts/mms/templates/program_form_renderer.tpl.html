@@ -1,0 +1,210 @@
+<div class="row">
+	<div class="btn-group pull-right text-right" ng-show="pc.editablePGForm[programItem.id].$visible">
+		
+	    <button type="submit" class="btn btn-primary btn-sm"
+	            ng-disabled="pc.editablePGForm.$waiting">Save
+	    </button>
+		<button type="button" class="btn btn-default btn-sm"
+				ng-disabled="pc.editablePGForm[programItem.id].$waiting"
+				ng-click="pc.editablePGForm[programItem.id].$cancel()">Cancel
+		</button>				
+	</div>
+	
+
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.name" class="col-sm-6 control-label">Name</label>
+				<div class="col-md-6">
+						<input type="text" class="form-control"
+							id="pc.currentFullProgram.name" placeholder="Name"
+							ng-model="pc.currentFullProgram.name">
+		
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">			
+				<label for="pc.currentFullProgram.code" class="col-sm-6 control-label">Code</label>
+				<div class="col-md-6">
+					<input type="text" class="form-control"
+						ng-readonly="pc.currentFullProgramHasContent"
+						pattern="[A-Z]{2}|[A-Z]{3}"
+						title="Only 2 or 3 letters A-Z allowed." maxlength="3"
+						id="pc.currentFullProgram.code" placeholder="Code"
+						ng-model="pc.currentFullProgram.code">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.platform" class="col-sm-6 control-label">Platform</label>
+				<div class="col-md-6">
+					<select class="form-control"
+						ng-model="pc.currentFullProgram.platform" name="platform"
+						ng-options="p.value as p.text for p in ::pc.platforms | orderBy:'text'">{{(pc.platforms | filter:{value: pc.currentFullProgram.platform})[0].text || 'Platform' }}</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.topLevelScope"
+					class="col-sm-6 control-label">Top Level Scope</label>
+				<div class="col-md-6">
+					<select class="form-control"
+						ng-model="pc.currentFullProgram.topLevelScope"
+						name="topLevelScope"
+						ng-options="p.value as p.text for p in ::pc.topLevelScopes | orderBy:'text'">{{
+						(pc.topLevelScopes | filter:{value:
+						pc.currentFullProgram.topLevelScope})[0].text || 'Top Level Scope' }}</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.discipline"
+					class="col-sm-6 control-label">Discipline</label>
+				<div class="col-md-6">
+					<select class="form-control"
+						ng-model="pc.currentFullProgram.discipline" name="discipline"
+						ng-options="p.value as p.text for p in ::pc.disciplines | orderBy:'text'">{{
+						(pc.disciplines | filter:{value:
+						pc.currentFullProgram.discipline})[0].text || 'Discipline' }}</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.secondLevelScope"
+					class="col-sm-6 control-label">Second Level Scope</label>
+				<div class="col-md-6">
+					<select class="form-control"
+						ng-model="pc.currentFullProgram.secondLevelScope"
+						name="secondLevelScope"
+						ng-options="p.value as p.text for p in ::pc.secondLevelScopes | orderBy:'text'">{{
+						(pc.secondLevelScopes | filter:{value:
+						pc.currentFullProgram.secondLevelScope})[0].text || 'Second Level Scope'
+						}}</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.copyrightYear"
+					class="col-sm-6 control-label">Copyright Year </label>
+				<div class="col-md-6">
+					<select class="form-control"
+						ng-model="pc.currentFullProgram.copyrightYear"
+						name="copyrightYear"
+						ng-options="y as y for y in [] | range">{{ (range |
+						filter:{value: pc.currentFullProgram.copyrightYear})[0].text ||
+						'Copyright Year' }}</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.thirdLevelScope"
+					class="col-sm-6 control-label">Third Level Scope</label>
+				<div class="col-md-6">
+					<select class="form-control"
+						ng-model="pc.currentFullProgram.thirdLevelScope"
+						name="thirdLevelScope"
+						ng-options="p.value as p.text for p in ::pc.thirdLevelScopes | orderBy:'text'">{{
+						(pc.thirdLevelScopes | filter:{value:
+						pc.currentFullProgram.thirdLevelScope})[0].text || 'Third Level Scope' }}</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.state" class="col-sm-6 control-label">State</label>
+				<div class="col-md-6">
+					<select class="form-control"
+						ng-model="pc.currentFullProgram.state" name="state"
+						ng-options="p.value as p.text for p in ::pc.states">{{
+						(pc.states | filter:{value: pc.currentFullProgram.state})[0].text ||
+						'State' }}</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.fourthLevelScope"
+					class="col-sm-6 control-label">Fourth Level Scope</label>
+				<div class="col-md-6">
+					<select class="form-control"
+						ng-model="pc.currentFullProgram.fourthLevelScope"
+						name="fourthLevelScope"
+						ng-options="p.value as p.text for p in ::pc.fourthLevelScopes | orderBy:'text'">{{
+						(pc.fourthLevelScopes | filter:{value:
+						pc.currentFullProgram.fourthLevelScope})[0].text || 'Fourth Level Scope'
+						}}</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.standardSetName"
+					class="col-sm-6 control-label">Standard Set Name</label>
+				<div class="col-md-6">
+					<input type="text" class="form-control"
+						id="pc.currentFullProgram.standardSetName"
+						ng-model="pc.currentFullProgram.standardSetName"
+						text="pc.currentFullProgram.standardSetName">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.fifthLevelScope"
+					class="col-sm-6 control-label">Fifth Level Scope</label>
+				<div class="col-md-6">
+					<select class="form-control"
+						ng-model="pc.currentFullProgram.fifthLevelScope"
+						name="fifthLevelScope"
+						ng-options="p.value as p.text for p in ::pc.fifthLevelScopes | orderBy:'text'">{{
+						(pc.fifthLevelScopes | filter:{value:
+						pc.currentFullProgram.fifthLevelScope})[0].text || 'Fifth Level Scope' }}</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.abStandard"
+					class="col-sm-6 control-label">AB Standard SVN link</label>
+				<div class="col-md-6">							
+				<input type="text" class="form-control"
+							id="pc.currentFullProgram.abStandard" placeholder="AB Standard XML SVN URL"
+							ng-model="pc.currentFullProgram.abStandard" text="pc.currentFullProgram.abStandard" uib-tooltip="Enter the SVN URL to the AB standard. The AB standard must contain valid ABGUID's. Only required for Common Cartridge Generation">
+				
+				
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="pc.currentFullProgram.hmsiStandard"
+					class="col-sm-6 control-label">HMSI Standard SVN link</label>
+				<div class="col-md-6">
+					<input type="text" class="form-control"
+							id="pc.currentFullProgram.hmsiStandard" placeholder="HMSI Standard XML SVN URL"
+							ng-model="pc.currentFullProgram.hmsiStandard" text="pc.currentFullProgram.hmsiStandard" uib-tooltip="Enter the SVN URL to the HMSI standard. The HMSI standard must contain valid ABGUID's. Only required for Common Cartridge Generation. Note: if you want to generate Brainhoney specific Common Cartridge packages with Standards then the HMSi standard must be provided as Brainhoney CC packages have a dependency on the HMSI hierarchy id for Standards.">
+				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

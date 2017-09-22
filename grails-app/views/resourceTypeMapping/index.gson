@@ -1,0 +1,8 @@
+import hmh.mms.mapping.ResourceTypeMapping
+
+model {
+	Iterable<ResourceTypeMapping> resourceTypeMappingList
+}
+
+json tmpl.resourceTypeMapping(resourceTypeMappingList ?: [])
+

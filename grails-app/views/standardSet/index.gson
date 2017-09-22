@@ -1,0 +1,8 @@
+import hmh.mms.StandardSet
+
+model {
+	Iterable<StandardSet> standardSetList
+}
+
+json tmpl.standardSet(standardSetList ?: [])
+

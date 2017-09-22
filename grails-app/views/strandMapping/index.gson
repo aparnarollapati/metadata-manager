@@ -1,0 +1,8 @@
+import hmh.mms.mapping.StrandMapping
+
+model {
+	Iterable<StrandMapping> strandMappingList
+}
+
+json tmpl.strandMapping(strandMappingList ?: [])
+

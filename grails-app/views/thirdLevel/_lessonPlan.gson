@@ -1,0 +1,14 @@
+import hmh.mms.LessonPlan
+
+model {
+	LessonPlan lessonPlan
+}
+
+json g.render(lessonPlan, [excludes:['thirdLevel']]){
+
+    //version "toplevelslist"
+    //templateName "thirdLevel/_lessonPlan.gson" 
+    
+	id lessonPlan.id
+	
+}

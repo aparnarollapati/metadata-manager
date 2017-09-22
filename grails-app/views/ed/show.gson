@@ -1,0 +1,7 @@
+import hmh.mms.Ed
+
+model {
+	Ed ed
+}
+
+json tmpl.ed(ed)

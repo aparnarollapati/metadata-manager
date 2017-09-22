@@ -1,0 +1,207 @@
+<div class="panel panel-filled panel-c-white"
+	ng-controller="ReaderController as readerCont">
+
+	<div class="panel-heading">
+		<div class="panel-tools"
+			ng-show="!editableReaderForm.$visible">
+			<div class="btn-group pull-right text-right">				
+				<button class="btn btn-default btn-sm" type="button"
+					ng-click="readerCont.setCurrentAddContent(contentc.fullContent[contentItem.id]);editableReaderForm.$show()"
+					ng-show="contentc.fullContent[contentItem.id].reader.id == null">
+					<i class="fa fa-plus-square-o"></i> Add Reader
+				</button>
+			</div>
+		</div>
+
+		<span><a class="panel-toggle"
+			ng-click="toggleReader=!toggleReader">
+			<i class="fa"
+			ng-class="{'fa-chevron-down':toggleReader ,'fa-chevron-right': !toggleReader}"
+			ng-show="contentc.fullContent[contentItem.id].reader.id != null"></i></a>
+			Reader</span>
+	</div>
+
+	<form class="form-horizontal" editable-form
+		name="editableReaderForm"
+		ng-show="editableReaderForm.$visible"
+		ng-submit="readerCont.addReaderContent();editableReaderForm.$cancel();toggleReader">
+
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-sm-6 control-label">ISBN-10</label>
+					<div class="col-md-6">
+						<input type="text" maxlength="10" pattern="[0-9X]{10}"
+							tabindex="1"
+							name="newIsbn10" class="form-control"
+							ng-model="readerCont.newIsbn10" />
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="col-sm-4 control-label">ISBN-13</label>
+					<div class="col-md-6">
+						<input type="text" maxlength="13" pattern="[0-9]{13}"
+							tabindex="2"
+							name="newIsbn13" class="form-control"
+							ng-model="readerCont.newIsbn13" />
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="btn-group pull-right text-right">
+					<!-- buttons to submit / cancel form -->
+					<button type="submit" class="btn btn-accent" tabindex="101">
+						<i class="fa pe-7s-plus"></i> Save
+					</button>
+					<button type="button" class="btn btn-default" tabindex="102"
+						ng-click="editableReaderForm.$cancel()">
+						<i class="fa pe-7s-close-circle"></i> Cancel
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="reader.levelOptions" class="col-sm-6 control-label">Reader
+						Level</label>
+					<div class="col-md-6">
+						<select name="readerLevel" class="form-control"
+							tabindex="3"
+							ng-model="readerCont.newReaderLevel"
+							ng-options="rl.value as rl.text for rl in readerCont.readerLevelOptions"></select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Guided Reading Levels</label>
+					<div class="col-md-6">
+						<input type="text" pattern="[A-Z]{1,10}"
+							tabindex="4"
+							name="newGuidedReadingLevels" class="form-control"
+							ng-model="readerCont.newGuidedReadingLevels" />
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-sm-6 control-label">DRA/EDL Level</label>
+					<div class="col-md-6">
+						<input type="text" maxlength="10" 
+							tabindex="5"
+							name="newDraEdlLevel"
+							class="form-control" ng-model="readerCont.newDraEdlLevel" />
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Reading Recovery
+						Level</label>
+					<div class="col-md-6">
+						<input type="text" maxlength="10" 
+							tabindex="6"
+							name="newReadingRecoveryLevels"
+							class="form-control"
+							ng-model="readerCont.newReadingRecoveryLevels" />
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-sm-6 control-label">Reading Skills</label>
+					<div class="col-md-6">
+						<input type="text" maxlength="200" 
+							tabindex="7"
+							name="newReadingSkills"
+							class="form-control" ng-model="readerCont.newReadingSkills" />
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group"></div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+
+	</form>	
+
+	<div class="panel-body"
+		ng-show="toggleReader && contentc.fullContent[contentItem.id].reader.id != null">
+		<div class="table-responsive"
+			ng-show="!editableReaderForm.$visible">
+			<table class="table table-striped table-hover"
+				ng-show="contentc.fullContent[contentItem.id].reader.id != null">
+				<thead>
+					<tr>
+						<th>ISBN-10</th>
+						<th>ISBN-13</th>
+						<th>Reader Level</th>
+						<th>Guided Reading Level</th>
+						<th>DRA/EDL Level</th>
+						<th>Reading Recovery Level</th>
+						<th>Reading Skills</th>
+						<th>delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="#" data-inputclass="form-control"
+							editable-text="contentc.fullContent[contentItem.id].reader.isbn10"
+							e-maxlength="10" e-pattern="[0-9X]{10}"
+							onaftersave="readerCont.updateISBN10(contentc.fullContent[contentItem.id].reader, $data)">{{
+								contentc.fullContent[contentItem.id].reader.isbn10 || 'Add
+								ISBN-10' }}</a></td>
+						<td><a href="#" data-inputclass="form-control"
+							editable-text="contentc.fullContent[contentItem.id].reader.isbn13"
+							e-maxlength="13" pattern="[0-9]{13}"
+							onaftersave="readerCont.updateISBN13(contentc.fullContent[contentItem.id].reader, $data)">{{
+								contentc.fullContent[contentItem.id].reader.isbn13 || 'Add
+								ISBN-13' }}</a></td>
+						<td><a href="#" data-inputclass="form-control"
+							data-title="Reader Level"
+							editable-select="contentc.fullContent[contentItem.id].reader.readerLevel"
+							e-ng-options="rl.value as rl.text for rl in readerCont.readerLevelOptions"
+							onaftersave="readerCont.updateReaderLevel(contentc.fullContent[contentItem.id].reader, $data)">{{contentc.fullContent[contentItem.id].reader.readerLevel
+								|| 'Add Reader Level'}}</a></td>
+						<td><a href="#" data-inputclass="form-control"
+							e-pattern="[A-Z]{1,10}" e-placeholder="Add Guided Reading Level"
+							data-title="Guided Reading Levels"
+							onaftersave="readerCont.updateGuidedReadingLevels(contentc.fullContent[contentItem.id].reader, $data)"
+							editable-text="contentc.fullContent[contentItem.id].reader.guidedReadingLevels">{{
+								contentc.fullContent[contentItem.id].reader.guidedReadingLevels
+								|| 'Add Guided Reading Level' }}</a></td>
+						<td><a href="#" data-inputclass="form-control"
+							e-maxlength="10" data-title="DRA/EDL Level"
+							editable-text="contentc.fullContent[contentItem.id].reader.draEdlLevel"
+							onaftersave="readerCont.updateDraEdlLevel(contentc.fullContent[contentItem.id].reader, $data)">{{contentc.fullContent[contentItem.id].reader.draEdlLevel
+								|| 'Add DRA/EDL Level'}}</a></td>
+						<td><a href="#" data-inputclass="form-control"
+							e-maxlength="10" data-title="Reading Recovery Levels"
+							editable-text="contentc.fullContent[contentItem.id].reader.readingRecoveryLevels"
+							onaftersave="readerCont.updateReadingRecoveryLevels(contentc.fullContent[contentItem.id].reader, $data)">{{contentc.fullContent[contentItem.id].reader.readingRecoveryLevels
+								|| 'Add Reading Recovery Level'}}</a></td>
+						<td><a href="#" data-inputclass="form-control"
+							e-maxlength="200" data-title="Reading Skills"
+							editable-text="contentc.fullContent[contentItem.id].reader.readingSkills"
+							onaftersave="readerCont.updateReadingSkills(contentc.fullContent[contentItem.id].reader, $data)">{{contentc.fullContent[contentItem.id].reader.readingSkills
+								|| 'Add Reading Skills'}}</a></td>
+						<td><a class="pull-right" data-nodrag
+							ng-click="readerCont.delete(contentc.fullContent[contentItem.id].reader)"><i
+								class="fa fa-times"></i></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

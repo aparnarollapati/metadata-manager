@@ -1,0 +1,13 @@
+import hmh.mms.LessonPlan
+
+model {
+	LessonPlan lessonPlan
+}
+
+json g.render(lessonPlan, [excludes:['secondLevel']]){
+
+    templateName "program/_lessonPlan.gson" 
+    
+	id lessonPlan.id
+	
+}

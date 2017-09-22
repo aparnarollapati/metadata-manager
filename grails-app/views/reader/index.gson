@@ -1,0 +1,8 @@
+import hmh.mms.Reader
+
+model {
+	Iterable<Reader> readerList
+}
+
+json tmpl.reader(readerList ?: [])
+

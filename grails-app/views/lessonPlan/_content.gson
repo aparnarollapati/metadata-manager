@@ -1,0 +1,18 @@
+import hmh.mms.Content
+
+model {
+	Content content
+}
+
+json g.render(content){
+	
+    templateName "program/_content.gson" 
+	
+	uniqueId content.getUniqueId()	
+	tempProduct tmpl.product(content.product)
+	keywords tmpl.keyword(content.keywords)
+	commonCartridgeKeywords tmpl.commonCartridgeKeyword(content.commonCartridgeKeywords)
+	standards tmpl.standard(content.standards)
+	mwsGuids tmpl.myWriteSmart(content.mwsGuids)	
+
+}

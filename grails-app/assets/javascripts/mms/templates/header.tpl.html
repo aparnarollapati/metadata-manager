@@ -1,0 +1,36 @@
+<!-- Header-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+               
+                <a class="navbar-brand" ui-sref="dashboard" ng-controller="HeaderController as hc">
+                    MMS
+	          <span>v.{{hc.applicationData.appversion}}</span>
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+       
+                 <ul class="navbar-form navbar-left nav nav-pills">
+					<li role="presentation"><a ui-sref="generatexmls">Generate XML</a></li>
+					<li role="presentation"><a ui-sref="generateExcel">Generate Excel</a></li>
+					<li ng-if="isAuthorized(['ROLE_USER_ADMIN','ROLE_ADMIN'])"><a ui-sref="admin">User Settings</a></li>
+                    <li ng-if="isAuthorized(['ROLE_ADMIN'])"><a href="quartz/list" target="_self">Quartz Job Monitor</a></li>
+				 </ul>
+                         
+                 <form class="navbar-form navbar-left">
+                    <!-- <input type="text" class="form-control" placeholder="Search data for analysis" style="width: 175px">-->
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" class="profile-link">
+                            <span class="profile-address">{{currentUser.username}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-show="!isAuthenticated" href="#" ng-click="logout()"><span class="label label-warning">Log Out</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End header-->

@@ -1,0 +1,12 @@
+import hmh.mms.Program
+
+model {
+	Program program
+}
+
+json g.render(program, [includes:['id', 'platform', 'name', 'state']]){
+	
+	location "correlationSource/_program"
+	correlationSource tmpl.correlationSource(program.correlations)
+	
+}

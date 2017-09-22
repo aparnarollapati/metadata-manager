@@ -1,0 +1,13 @@
+import hmh.mms.level.LevelStandard
+
+model {
+	LevelStandard levelStandard
+}
+
+// only show standards
+json g.render(levelStandard, [includes:['id', 'standard']]){
+
+    version "toplevelslist"
+    templateName "secondlevel/_levelStandard.gson"     
+
+}

@@ -1,0 +1,11 @@
+import hmh.mms.Content
+
+model {
+	Content content
+}
+
+json g.render(content, [includes:['id', 'lessonPlan', 'segment', 'strand', 'sortId', 'displayTitle', 'component']]){
+	
+    //templateName "fifthLevel/_content.gson" 	
+
+}

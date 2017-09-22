@@ -1,0 +1,7 @@
+import hmh.mms.Product
+
+model {
+	Product product
+}
+
+json g.render(product, [includes:['isbn']])

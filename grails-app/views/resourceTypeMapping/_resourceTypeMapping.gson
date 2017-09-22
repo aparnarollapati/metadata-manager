@@ -1,0 +1,7 @@
+import hmh.mms.mapping.ResourceTypeMapping
+
+model {
+	ResourceTypeMapping resourceTypeMapping
+}
+
+json g.render(resourceTypeMapping, [excludes:['id']])

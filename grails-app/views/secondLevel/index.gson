@@ -1,0 +1,8 @@
+import hmh.mms.level.SecondLevel
+
+model {
+	Iterable<SecondLevel> secondLevelList
+}
+
+json tmpl.secondLevel(secondLevelList ?: [])
+

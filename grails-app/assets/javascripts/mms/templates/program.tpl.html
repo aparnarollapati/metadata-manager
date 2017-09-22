@@ -1,0 +1,295 @@
+<!-- Main content-->
+<section class="content">
+    <div class="container-fluid" ng-controller="ProgramController as pc">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="view-header">
+                    <div class="pull-right text-right" style="line-height: 14px">
+                        <!-- We can use this section for breadcrumbs -->                       
+                    </div>
+                    <div class="header-icon">
+                        <i class="pe page-header-icon pe-7s-display2"></i>
+                    </div>
+                    <div class="header-title">
+                        <h3>Program Editor</h3>
+                        <small> Create a new program or edit an existing one.</small>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-filled panel-c-accent">
+                    <div class="panel-heading" ng-click="togglePRNew=!togglePRNew">
+                        <div class="panel-tools">
+                            <a><i class="fa" ng-class="{'fa-chevron-down': togglePRNew,'fa-chevron-right': !togglePRNew}"></i></a>
+                        </div>
+                        Create New Program 
+                    </div>
+
+                    <div class="panel-body" ng-show="togglePRNew">
+                        <form editable-form  ng-submit="pc.addProgram();togglePRNew=!togglePRNew;togglePRBody=!togglePRBody;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group required">
+                                        <input type="text" placeholder="Name" class="form-control" ng-model="pc.newName" ng-change="pc.theProgramChanged()" required>
+                                    </div>
+                                </div>
+                                 <div class="col-lg-6">
+                                    <div class="form-group required">
+                                         <input type="text" pattern="[A-Z]{2}|[A-Z]{3}"  title="Only 2 or 3 letters A-Z allowed." maxlength="3" placeholder="Code" class="form-control" ng-model="pc.newCode" required>
+                                 </div>
+                                </div>
+                               
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                       <select name="newPlatform" class="form-control" ng-model="pc.newPlatform" ng-options="p.value as p.text for p in ::pc.platforms | orderBy:'text'">
+                                          <option value="" selected disabled>Platform</option>
+                                       </select>
+                                    </div>
+                                </div>
+                                 <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <select name="newTopLevelScope" class="form-control" ng-model="pc.newTopLevelScope" ng-options="p.value as p.text for p in ::pc.topLevelScopes | orderBy:'text'">
+                                          <option value="" selected disabled>Top Level Scope</option>
+                                        </select>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                       <select name="newDiscipline" class="form-control" ng-model="pc.newDiscipline" ng-options="p.value as p.text for p in ::pc.disciplines | orderBy:'text'">
+                                            <option value="" selected disabled>Discipline</option>  
+                                       </select>    
+                                    </div>
+                                </div>
+                                 <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <select name="newSecondLevelScope" class="form-control" ng-model="pc.newSecondLevelScope" ng-options="p.value as p.text for p in ::pc.secondLevelScopes | orderBy:'text'">
+                                          <option value="" selected disabled>Second Level Scope</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                 <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <select name="newCopyrightYear" class="form-control" ng-model="pc.newCopyrightYear" ng-options="y as y for y in [] | range">
+                                          <option value="" selected disabled>Copyright Year</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                
+                                        <select name="newThirdLevelScope" class="form-control" ng-model="pc.newThirdLevelScope" ng-options="p.value as p.text for p in ::pc.thirdLevelScopes | orderBy:'text'">
+                                          <option value="" selected disabled>Third Level Scope</option>
+                                        </select>
+                                    </div>
+                                </div>                                 
+                            </div>
+                            <div class="row">
+                                 <div class="col-lg-6">
+                                    <div class="form-group">
+                                         <select name="newState" class="form-control" ng-model="pc.newState" ng-options="p.value as p.text for p in ::pc.states">
+                                            <option value="" selected disabled>State</option>   
+                                        </select>                                        
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">                                    
+                                        <select name="newFourthLevelScope" class="form-control" ng-model="pc.newFourthLevelScope" ng-options="p.value as p.text for p in ::pc.fourthLevelScopes | orderBy:'text'">
+                                          <option value="" selected disabled>Fourth Level Scope</option>
+                                        </select>
+                                    </div>
+                                </div> 
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Standards Set Name" class="form-control" ng-model="pc.newStandardSetName">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <select name="newFifthLevelScope" class="form-control" ng-model="pc.newFifthLevelScope" ng-options="p.value as p.text for p in ::pc.fifthLevelScopes | orderBy:'text'">
+                                          <option value="" selected disabled>Fifth Level Scope</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="AB Standard XML SVN URL" uib-tooltip="Enter the SVN URL to the AB standard. The AB standard must contain valid ABGUID's. Only required for Common Cartridge Generation." class="form-control" ng-model="pc.abStandard">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                          <input type="text" placeholder="HMSI Standard XML SVN URL" uib-tooltip="Enter the SVN URL to the HMSI standard. The HMSI standard must contain valid ABGUID's. Only required for Common Cartridge Generation. Note: if you want to generate Brainhoney specific Common Cartridge packages with Standards then the HMSi standard must be provided as Brainhoney CC packages have a dependency on the HMSI hierarchy id for Standards" class="form-control" ng-model="pc.hmsiStandard">
+                                    </div>
+                                </div>                                
+                             </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                </div>
+                                <div class="col-lg-6">                                
+                                    <div class="btn-group pull-right text-right">
+                                        <button type="submit" class="btn btn-success">Create New Program</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-filled panel-c-accent">
+                    <div class="panel-heading" ng-click="togglePRBody=!togglePRBody;pc.checkList();">
+                        <div class="panel-tools">
+                            <a><i class="fa" ng-class="{'fa-chevron-down': togglePRBody,'fa-chevron-right': !togglePRBody}"></i></a>
+                        </div>
+                        Programs
+                    </div>
+                    <div class="panel-body" ng-show="togglePRBody">
+                        <div class="form-inline">
+                            Filter: <input class="form-control input-sm" placeholder="by title" ng-model="pc.query" ng-change="pc.findNodes()">
+                        </div>
+                        
+                        <div ui-tree id="program-tree-root">
+                            <ol ui-tree-nodes data-drop-enabled="false"
+                                data-nodrop-enabled="true" ng-model="pc.programs">
+                                <li ui-tree-node expand-on-hover="true" data-nodrag="true"
+                                    ng-repeat="programItem in pc.programs | orderBy:'-id'"
+                                    ng-include="'program_renderer.html'"
+                                    ng-show="pc.visible(programItem)"/>
+                            </ol>
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- 
+    <div class="row" ng-if="isAuthorized(['ROLE_ADMIN'])">
+            <div class="col-lg-12">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading " ng-click="togglePRDebug=!togglePRDebug">
+                            <div class="panel-tools">
+                                <a ><i class="fa" ng-class="{'fa-chevron-down': togglePRDebug,'fa-chevron-right': !togglePRDebug}"></i></a>
+                            </div>
+                            Debug output for Programs
+                        </div>
+                        <div class="panel-body" ng-show="togglePRDebug">
+                            <ul>
+                                <li>Debug output for initial list of programs without any detail</li>
+			                    <li>Network requested: mms/api/programs</li>
+                                <li>Assigned to model as: programs</li>
+                                <li>Version requested from API: v1.0</li>
+                            </ul>
+                            <ul>
+                                <li>Includes just the very basic atribute information that the program list displays.</li>
+                                <li>Used for the main listing of programs.</li>
+                            </ul>
+                            <pre class="code">{{ pc.programs | json }}</pre>
+                        </div>
+                    </div>
+            </div>
+        </div>    
+   
+    <div class="row" ng-if="isAuthorized(['ROLE_ADMIN'])">
+            <div class="col-lg-12" ng-controller="SecondLevelController as secondlc">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading " ng-click="togglePRDebug=!togglePRDebug">
+                            <div class="panel-tools">
+                                <a ><i class="fa" ng-class="{'fa-chevron-down': togglePRDebug,'fa-chevron-right': !togglePRDebug}"></i></a>
+                            </div>
+                             Debug output for Full Program
+                        </div>
+                        <div class="panel-body" ng-show="togglePRDebug">
+                            <ul>
+                                <li>Debug output for Full Program</li>
+			                     <li>Click on an individual program.  Expand it out and get back all info except the full toplevel detail.</li>
+                                <li>Assigned to model as: currentFullProgram[programItem.id]</li>
+                                <li>Version requested from API: v1.0</li>
+                            </ul>
+                            <ul>
+                                <li>Includes all of the attribute information and all segment, strands, components and products information for a single program.</li>
+                                <li>Used for the expanded view of an individual program</li>
+                            </ul>   
+                            <pre class="code">{{ pc.currentFullProgram | json }}</pre>
+                        </div>
+                    </div>
+
+        </div>    
+    </div>
+    
+    
+      <div class="row" ng-if="isAuthorized(['ROLE_ADMIN'])">
+            <div class="col-lg-12">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading " ng-click="togglePRDebug=!togglePRDebug">
+                            <div class="panel-tools">
+                                <a ><i class="fa" ng-class="{'fa-chevron-down': togglePRDebug,'fa-chevron-right': !togglePRDebug}"></i></a>
+                            </div>
+                            Debug output for TopLevels Program List
+                        </div>
+                        <div class="panel-body" ng-show="togglePRDebug">
+                            <ul>
+                                <li>Debug output for TopLevels Program List</li>
+			                     <li>Click on the Program Structure tab within a program.</li>
+                                <li>Version requested from API: vtoplevelslist</li>
+                                <li>Assigned to model as: currentTopLevelsList[programItem.id]</li>
+                            </ul>
+                            <ul>
+                                <li>Includes all the topLevel info for a specific program and the default program attributes too.</li>
+                                <li>Used for the Program Structure tab of an individual program</li>
+                            </ul>
+                            <pre class="code">{{ pc.currentTopLevelsList | json }}</pre>
+                        </div>
+                    </div>
+            </div>
+        </div>    
+     
+      <div class="row" ng-if="isAuthorized(['ROLE_ADMIN'])">
+            <div class="col-lg-12">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading " ng-click="togglePRDebug=!togglePRDebug">
+                            <div class="panel-tools">
+                                <a ><i class="fa" ng-class="{'fa-chevron-down': togglePRDebug,'fa-chevron-right': !togglePRDebug}"></i></a>
+                            </div>
+                            Debug output for SecondLevels List
+                        </div>
+                        <div class="panel-body" ng-show="togglePRDebug">
+                            <ul>
+			                     <li>Click on a specific Second level within the top level list of second levels.</li>
+                                <li>Version requested from API: vtoplevelslist</li>
+                                <li>Assigned to model as: secondlc.fullSecondLevel[secondLevelItem.id]</li>
+                            </ul>
+                            <ul>
+                                <li>Includes all the secondLevel info for a specific program and the default program attributes too.</li>
+
+                            </ul>
+                            <pre class="code">{{ secondlc.fullSecondLevel[secondLevelItem.id] | json }}</pre>
+                        </div>
+                    </div>
+            </div>
+        </div> 
+
+         -->
+
+
+       
+    </div>
+</section>
+<!-- End pc content-->

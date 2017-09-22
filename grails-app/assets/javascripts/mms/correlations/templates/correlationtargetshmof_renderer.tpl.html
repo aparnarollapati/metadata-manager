@@ -1,0 +1,4 @@
+<td><span data-inputclass="form-control" ng-bind="correlationTarget.product.isbn"  ></span> </td>
+<td><span data-inputclass="form-control" ng-bind="correlationTarget.product.title"  ></span> </td>	
+<td><span data-inputclass="form-control" ng-click="ctc.getProductComponents(correlationSource);" editable-select="correlationTarget.component" e-name="id" e-ng-options="component as (component.component + ' (' + component.componentType + ') ' + 'H' + component.componentHierarchy + '-TT' + component.toolType) for component in ctc.fullTComponents" onbeforesave="ctc.updateTCTargetComponent(correlationTarget, $data)">{{correlationTarget.component.component}} ( {{correlationTarget.component.componentType}} ) H {{correlationTarget.component.componentHierarchy}} -TT {{correlationTarget.component.toolType}}</span></td>	
+<td><a class="pull-right text-right" data-nodrag ng-click="ctc.delete(correlationTarget)"><i class="fa fa-times"></i></a> </td>

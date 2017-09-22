@@ -1,0 +1,70 @@
+<div class="panel panel-filled panel-c-success" ng-controller="InstructionalSegmentController as is">
+    <div class="panel-heading">
+        <div class="panel-tools" ng-show="!editableISForm.$visible">
+            <div class="btn-group pull-right text-right">                
+                <button class="btn btn-default btn-sm" type="button"
+                    ng-click="editableISForm.$show()">
+                    <i class="fa fa-plus-square-o"></i> Add Instructional Segment
+                </button>
+            </div>
+        </div>
+         <span>
+            <a class="panel-toggle" ng-show="pc.fullProgram[programItem.id].segments[0] != null"
+            ng-click="toggleIS=!toggleIS">
+            <i class="fa" ng-class="{'fa-chevron-down': toggleIS,'fa-chevron-right': !toggleIS}"></i></a> Instructional Segments
+        </span>
+    </div>
+    <form class="form-horizontal" editable-form name="editableISForm"
+        ng-show="editableISForm.$visible"
+        ng-submit="is.addInstructionalSegment(pc.fullProgram[programItem.id]);editableISForm.$cancel();">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label">Title</label>
+                    <div class="col-md-10">
+                        <select name="component" class="form-control"
+                            required
+                            ng-model="is.newTitle"
+                            ng-options="c.instructionalSegment as c.instructionalSegment for c in instructionalSegmentMappingOptions" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label">Hierarchy</label>
+                    <div class="col-md-10">
+                        <input type="number" min="0" max="999" step="1"
+                            required
+                            class="form-control input-no-spinner input-fix-mousewheel2"
+                            ng-model="is.newHierarchy">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group pull-right text-right"
+                    ng-show="editableISForm.$visible">
+                    <!-- buttons to submit / cancel form -->
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa pe-7s-plus"></i> Save
+                    </button>
+                    <button type="button" class="btn btn-default"
+                        ng-click="editableISForm.$cancel()">
+                        <i class="fa pe-7s-close-circle"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="panel-body"
+        ng-show="toggleIS">
+        <ol ui-tree-nodes ng-model="pc.fullProgram[programItem.id].segments"
+            ng-show="!editableISForm.$visible">
+            <!--  ng-if="!collapsed">-->
+            <li ui-tree-node
+            ng-repeat="segmentItem in pc.fullProgram[programItem.id].segments | orderBy:'hierarchy' track by $index"
+            ng-include="'segment_renderer.html'" collapsed="true"
+            data-collapsed="true" />
+        </ol>
+    </div>
+</div>

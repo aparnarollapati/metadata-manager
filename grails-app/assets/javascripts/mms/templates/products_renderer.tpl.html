@@ -1,0 +1,207 @@
+<div class="panel panel-filled panel-c-info"
+	ng-controller="ProductController as prc">
+	<div class="panel-heading">
+		<div class="panel-tools" ng-show="!editableProductForm.$visible">
+			<div class="btn-group pull-right text-right">
+				<!-- button to show form -->
+				<button class="btn btn-default btn-sm" type="button"
+					ng-click="editableProductForm.$show()">
+					<i class="fa fa-plus-square-o"></i> Add Product
+				</button>
+			</div>
+		</div>
+		<span>
+			<a ng-show="pc.fullProgram[programItem.id].products[0] != null"
+			ng-click="toggleProduct=!toggleProduct">
+			<i class="fa" ng-class="{'fa-chevron-down': toggleProduct,'fa-chevron-right': !toggleProduct}"></i></a> Products
+		</span>
+	</div>
+	<form class="form-horizontal" editable-form name="editableProductForm"
+		ng-show="editableProductForm.$visible"
+		ng-submit="prc.addProduct(pc.fullProgram[programItem.id]);editableProductForm.$cancel();">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="form-group required">
+					<label class="col-sm-3 control-label">Title</label>
+					<div class="col-md-9">
+						<input type="text" class="form-control"
+							ng-model="prc.newTitle" required/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="btn-group pull-right text-right"
+					ng-show="editableProductForm.$visible">
+					<!-- buttons to submit / cancel form -->
+					<button type="submit" class="btn btn-primary">
+						<i class="fa pe-7s-plus"></i> Save
+					</button>
+					<button type="button" class="btn btn-default"
+						ng-click="editableProductForm.$cancel()">
+						<i class="fa pe-7s-close-circle"></i> Cancel
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group required">
+							<label class="col-sm-6 control-label">ISBN</label>
+							<div class="col-md-6">
+								<input type="text" maxlength="13" pattern="([0-9]{13})"								
+									class="form-control input-no-spinner input-fix-mousewheel2"
+									ng-model="prc.newISBN" required>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group required">
+							<label class="col-sm-6 control-label">Grades</label>
+							<div class="col-md-6" ng-controller="GradeController as prgr">
+								<select multiple name="grades" class="form-control" required
+									ng-model="prc.newGrades"
+									ng-options="p.value as p.text for p in ::prgr.gradeOptions">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Associated Components</label>
+					<div class="col-md-9">
+						<!--  track by component.id causes the ctrl button to not work with the multi-select box  -->
+						<select multiple
+							class="form-control" name="newComponents"
+							ng-model="prc.newComponents"
+							ng-options="component.id as (component.component + ' (' + component.componentType + ') ' + 'H' + component.componentHierarchy + '-TT' + component.toolType) group by component.categorization for component in pc.fullProgram[programItem.id].components | orderBy:'component'">
+							<option value=""></option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		<div class="row" ng-show="prc.accordian.toggleProductComponent == false">
+			<div class="col-md-9">
+				<div class="form-group">
+					<label for="programItem.id" class="col-sm-3 control-label"></label>
+					<div class="col-md-9">
+						<button class="btn btn-default btn-sm" type="button"
+							ng-click="prc.accordian.toggleProductComponent=!prc.accordian.toggleProductComponent">
+							<i class="fa fa-plus-square-o"></i> Add New Component
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		<!-- Form input elements for adding a new component -->
+		<div class="row"
+			ng-show="prc.accordian.toggleProductComponent == true"
+			ng-controller="ComponentSpecController as prcs">
+			<div class="col-md-9">
+			<div class="row">
+                    <div class="col-md-6">
+                    <label class="col-sm-6 control-label">Add Component
+                    </label>
+                    </div>
+                    <div class="col-md-6">
+                    </div></div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="col-sm-6 control-label">Component</label>
+							<div class="col-md-6">
+								<select name="component" class="form-control"
+									ng-model="prc.newComponent"
+									ng-options="c.component as c.component for c in pc.componentMappingOptions"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="col-sm-6 control-label">Hierarchy</label>
+							<div class="col-md-6">
+								<input type="number" placeholder="" min="0" max="99" step="1"
+									class="form-control input-no-spinner input-fix-mousewheel2"
+									ng-model="prc.newComponentHierarchy"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="col-sm-6 control-label">Component
+								Type</label>
+							<div class="col-md-6">
+								<select name="componentType" class="form-control"
+									ng-model="prc.newComponentType"
+									ng-options="c.componentType as c.componentType for c in pc.componentTypeMappingOptions"/>
+							</div>
+						</div>
+					</div>
+		
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-sm-6 control-label">Categorization</label>
+						<div class="col-md-6">
+							<select name="categorization" class="form-control"
+								ng-model="prc.newCategorization"
+								ng-options="c.categorization as c.categorization for c in pc.categorizationMappingOptions"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="pc.fullProgram[programItem.id].grade" class="col-sm-6 control-label">Tool Type</label>
+						<div class="col-md-6">
+							<!-- HMOF doesn't allow 0 -->
+							<select ng-show="pc.fullProgram[programItem.id].platform == 'HMOF'" name="toolType"
+								class="form-control" ng-model="prc.newToolType"
+								ng-options="c.value as c.text for c in prcs.toolTypeOptions | filter:{ HMOF : 'true' }"/>
+							<!-- TCK6 allows 0 -->
+							<select ng-show="pc.fullProgram[programItem.id].platform == 'TCK6'" name="toolType"
+								class="form-control" ng-model="prc.newToolType"
+								ng-options="c.value as c.text for c in prcs.toolTypeOptions | filter:{ TCK6 : 'true' }"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6"></div>
+			</div>
+			<div class="row" ng-show="prc.accordian.toggleProductComponent == true">
+	            <div class="col-md-6">
+	                <div class="form-group">
+	                    <label class="col-sm-6 control-label"></label>
+	                    <div class="col-md-6">
+	                       <button class="btn btn-default btn-sm" type="button" ng-click="prc.accordian.toggleProductComponent=!prc.accordian.toggleProductComponent">
+	                                <i class="fa fa-plus-square-o"></i> Associate Existing Component Only
+	                       </button>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-md-6"></div>
+            </div>		
+    </div>
+	<div class="col-md-3"></div>
+	</div>
+</form>
+<div class="panel-body" ng-show="toggleProduct">
+	<ol ui-tree-nodes ng-model="pc.fullProgram[programItem.id].products"
+		ng-show="!editableProductForm.$visible">
+		<li ui-tree-node
+			ng-repeat="productItem in pc.fullProgram[programItem.id].products | orderBy:['title', 'grades[0].guiOrdering'] track by $index"
+			ng-include="'product_renderer.html'" collapsed="true;"
+			data-collapsed="true" />
+	</ol>
+</div>
+</div>

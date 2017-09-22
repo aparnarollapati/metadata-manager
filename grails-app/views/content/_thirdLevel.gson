@@ -1,0 +1,7 @@
+import hmh.mms.level.ThirdLevel
+
+model {
+	ThirdLevel thirdLevel
+}
+
+json g.render(thirdLevel, [excludes:['content', 'grades', 'keywords', 'program', 'standards', 'secondLevel']])

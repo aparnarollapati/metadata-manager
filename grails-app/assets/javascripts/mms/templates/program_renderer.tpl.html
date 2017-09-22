@@ -1,0 +1,105 @@
+<!-- Program list view and edit form -->
+<div class="angular-ui-tree-handle" ui-tree="treeProgramContent">
+	<div class="panel panel-filled">
+		<div class="panel-heading">
+			<div class="panel-tools">
+				<div class="btn-group pull-right text-right">
+					<span ng-show="!pc.editablePGForm[programItem.id].$visible"> <!-- button to show form -->
+						<button class="btn btn-default btn-xs" type="button"
+							ng-click="pc.closeAllOtherPrograms(programItem.id);pc.updateCurrentProgram(programItem.id);pc.editablePGForm[programItem.id].$show()">
+							<i class="fa fa-paste"></i> Edit 
+						</button>
+						<button ng-if="isAuthorized(['ROLE_ADMIN'])"
+							class="btn btn-default btn-xs" type="button"
+							ng-click="pc.delete(programItem)" 
+                            delete-confirm-click="Are you sure you want to delete this Program?">
+							<i class="fa fa-trash-o"></i> <span class="bold">Delete</span>
+						</button>
+					</span>
+				</div>
+			</div>
+			<a data-nodrag ng-click="pc.closeAllOtherPrograms(programItem.id);pc.updateCurrentProgram(programItem.id);pc.accordian.toggleProgram[programItem.id]=!pc.accordian.toggleProgram[programItem.id]">
+				<i class="fa" ng-class="{'fa-chevron-down': pc.accordian.toggleProgram[programItem.id],'fa-chevron-right': !pc.accordian.toggleProgram[programItem.id]}"></i><span ui-tree-handle ng-show="!pc.editablePGForm[programItem.id].$visible">{{programItem.id}}
+				{{programItem.discipline}} - {{programItem.state}}
+				{{programItem.name}} ({{programItem.copyrightYear}})</span></a> 
+		</div>
+		<div>
+			<!--  Edit program form -->
+			<form class="form-horizontal editable-form" editable-form name="pc.editablePGForm[programItem.id]"
+				ng-show="pc.editablePGForm[programItem.id].$visible" onaftersave="pc.update(programItem)">
+				<a name="programEditForm"></a>
+                <ng-include src="'program_form_renderer.html'"></ng-include>
+			</form>
+		</div>
+		<div class="panel-body" ng-show="pc.accordian.toggleProgram[programItem.id]">
+		   <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li ng-class="pc.accordian.toggleProgramTab[programItem.id] == null || pc.accordian.toggleProgramTab[programItem.id]=='segments' ? 'active' : ''"><a data-toggle="tab" ng-click="pc.setSessionStorageVersion(); pc.accordian.toggleProgramTab[programItem.id]='segments'" href="#tab-1" aria-expanded="{{pc.accordian.toggleProgramTab[programItem.id]=='segments'}}">Segments</a></li>
+                    
+                    <li ng-class="pc.accordian.toggleProgramTab[programItem.id]=='strands' ? 'active' : ''"><a data-toggle="tab" ng-click="pc.getStrandMappingOptions(); pc.setSessionStorageVersion(); pc.accordian.toggleProgramTab[programItem.id]='strands'" href="#tab-2" aria-expanded="{{pc.accordian.toggleProgramTab[programItem.id]=='strands'}}">Strands</a></li>
+
+                    <li ng-class="pc.accordian.toggleProgramTab[programItem.id]=='components' ? 'active' : ''"><a data-toggle="tab" ng-click="pc.getComponentMappingOptions(); pc.setSessionStorageVersion(); pc.accordian.toggleProgramTab[programItem.id]='components'" href="#tab-3" aria-expanded="{{pc.accordian.toggleProgramTab[programItem.id]=='components'}}">Components</a></li>
+
+
+                    <li ng-class="pc.accordian.toggleProgramTab[programItem.id]=='products' ? 'active' : ''"><a data-toggle="tab" ng-click="pc.getComponentMappingOptions(); pc.setSessionStorageVersion(); pc.accordian.toggleProgramTab[programItem.id]='products'" href="#tab-4" aria-expanded="{{pc.accordian.toggleProgramTab[programItem.id]=='products'}}">Products</a></li>
+
+                    <li ng-class="pc.accordian.toggleProgramTab[programItem.id]=='programs' ? 'active' : ''"><a data-toggle="tab" ng-click="pc.updateCurrentTopLevelsList(); pc.accordian.toggleProgramTab[programItem.id]='programs'" href="#tab-5" aria-expanded="{{pc.accordian.toggleProgramTab[programItem.id]=='programs'}}">Program Structure</a></li>
+
+                    <li ng-class="pc.accordian.toggleProgramTab[programItem.id]=='correlations' ? 'active' : ''"><a data-toggle="tab" ng-click="pc.updateCurrentCorrelationsList(); pc.accordian.toggleProgramTab[programItem.id]='correlations'" href="#tab-6" aria-expanded="{{pc.accordian.toggleProgramTab[programItem.id]=='correlations'}}">Correlations</a></li>
+                  
+                    <li ng-class="pc.accordian.toggleProgramTab[programItem.id]=='standardsets' ? 'active' : ''"><a data-toggle="tab" ng-click="pc.setSessionStorageVersion(); pc.accordian.toggleProgramTab[programItem.id]='standardsets'" href="#tab-7" aria-expanded="{{pc.accordian.toggleProgramTab[programItem.id]=='standardsets'}}">Standard Sets</a></li>
+              
+                </ul>
+                <div class="tab-content">
+                            <div id="tab-1" ng-class="pc.accordian.toggleProgramTab[programItem.id] == null || pc.accordian.toggleProgramTab[programItem.id]=='segments' ? 'tab-pane active' : 'tab-pane'" active="pc.accordian.toggleProgramTab[programItem.id]=='segments'">
+                                <div class="panel-body">
+                                    <!--  Instructional Segments -->
+                                    <ng-include src="'segments_renderer.html'"></ng-include>
+                                </div>
+                            </div>
+                            <div id="tab-2" ng-class="pc.accordian.toggleProgramTab[programItem.id]=='strands' ? 'tab-pane active' : 'tab-pane'" active="pc.accordian.toggleProgramTab[programItem.id]=='strands'">
+                                <div class="panel-body">
+                                    <!-- Strands -->
+                                    <ng-include src="'strands_renderer.html'"></ng-include>
+                                </div>
+                            </div>
+                            <div id="tab-3" ng-class="pc.accordian.toggleProgramTab[programItem.id]=='components' ? 'tab-pane active' : 'tab-pane'" active="pc.accordian.toggleProgramTab[programItem.id]=='components'">
+                                <div class="panel-body">
+                                    <!-- Component Specs -->
+                                    <ng-include src="'componentspecs_renderer.html'"></ng-include>
+                                </div>
+                            </div>
+                            <div id="tab-4" ng-class="pc.accordian.toggleProgramTab[programItem.id]=='products' ? 'tab-pane active' : 'tab-pane'" active="pc.accordian.toggleProgramTab[programItem.id]=='products'">
+                                <div class="panel-body">
+                                    <!-- Products -->
+                                    <ng-include src="'products_renderer.html'"></ng-include>
+                                </div>
+                            </div>
+                            <div id="tab-5" ng-class="pc.accordian.toggleProgramTab[programItem.id]=='programs' ? 'tab-pane active' : 'tab-pane'" active="pc.accordian.toggleProgramTab[programItem.id]=='programs'">
+                                <div class="panel-body">
+                                    <!-- Toplevels - displayed as grade levels -->
+                                    <ng-include src="'toplevels_renderer.html'"></ng-include>
+                                </div>
+                            </div>
+                             <div id="tab-6" ng-class="pc.accordian.toggleProgramTab[programItem.id]=='correlations' ? 'tab-pane active' : 'tab-pane'" active="pc.accordian.toggleProgramTab[programItem.id]=='correlations'">
+                             
+                                <div class="panel-body" ng-if="programItem.platform=='TCK6'">  
+                                  <!-- TC Correlation - displayed as grade levels -->                                    
+                                    <ng-include src="'correlations_renderer.html'"></ng-include>
+                                </div>
+                                   <div class="panel-body" ng-if="programItem.platform=='HMOF'">  
+                                  <!-- TC Correlation - displayed as grade levels -->                                    
+                                    <ng-include src="'correlationshmof_renderer.html'"></ng-include>
+                                </div>
+                                
+                            </div>
+                             <div id="tab-5" ng-class="pc.accordian.toggleProgramTab[programItem.id]=='standardsets' ? 'tab-pane active' : 'tab-pane'" active="pc.accordian.toggleProgramTab[programItem.id]=='standardsets'">
+                                <div class="panel-body">
+                                    <!-- Toplevels - displayed as grade levels -->
+                                    <ng-include src="'standardsets_renderer.html'"></ng-include>
+                                </div>
+                            </div>
+                        </div>
+                    </div>               
+	</div>
+</div>

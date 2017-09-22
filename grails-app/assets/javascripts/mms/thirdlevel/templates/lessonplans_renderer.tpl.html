@@ -1,0 +1,90 @@
+<div class="panel panel-filled panel-c-white" ng-controller="LessonPlanController as lpc">
+	<div class="panel-heading">
+		<div class="panel-tools" ng-show="!editableThirdLPForm.$visible">
+			<div class="btn-group pull-right text-right">
+				<!-- button to show form -->
+				<button class="btn btn-default btn-sm" type="button" ng-click="editableThirdLPForm.$show()">
+					<i class="fa fa-plus-square-o"></i> Add Lesson Plan
+				</button>
+			</div>
+		</div>
+		<span><a class="panel-toggle" ng-show="thirdlc.fullThirdLevel[thirdLevelItem.id].lessonPlans[0] != null" ng-click="toggleThirdLP=!toggleThirdLP"><i class="fa" ng-class="{'fa-chevron-down':toggleThirdLP ,'fa-chevron-right': !toggleThirdLP}"></i></a> Lesson Plans</span>
+	</div>
+	<form class="form-horizontal" editable-form name="editableThirdLPForm" ng-show="editableThirdLPForm.$visible" ng-submit="lpc.addLessonPlanThirdLevel(thirdLevelItem.id);editableThirdLPForm.$cancel();">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group required">
+					<label for="lessonPlanItem.LessonPlanId" class="col-sm-6 control-label">Id</label>
+					<div class="col-md-6">
+						<input type="text" name="newLessonPlanId" class="form-control" ng-model="lpc.newLessonPlanId" required/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group required">
+					<label for="lessonPlanItem.title" class="col-sm-2 control-label">Title</label>
+					<div class="col-md-8">
+						<input name="newTitle" class="form-control" ng-model="lpc.newTitle" required/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="btn-group pull-right text-right" ng-show="editableThirdLPForm.$visible">
+					<!-- buttons to submit / cancel form -->
+					<button type="submit" class="btn btn-accent">
+						<i class="fa pe-7s-plus"></i> Save
+					</button>
+					<button type="button" class="btn btn-default" ng-click="editableThirdLPForm.$cancel()">
+						<i class="fa pe-7s-close-circle"></i> Cancel
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group required">
+					<label for=lessonPlanItem.duration " class="col-sm-6 control-label">Duration</label>
+					<div class="col-md-6">
+						<input name="newDuration" type="number" min="1" max="1000" step="1" placeholder="in minutes" class="form-control input-no-spinner input-fix-mousewheel2" ng-model="lpc.newDuration" required/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group required">
+					<label for="lessonPlanItem.sortId" class="col-sm-2 control-label">Sequence</label>
+					<div class="col-md-8">
+						<input name="newSortId" type="number" min="1" step="1" placeholder="" class="form-control input-no-spinner input-fix-mousewheel2" ng-model="lpc.newSortId" required/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</form>
+	<div class="panel-body" ng-show="toggleThirdLP && thirdlc.fullThirdLevel[thirdLevelItem.id].lessonPlans[0] != null">
+		<div class="table-responsive" ng-show="!editableThirdLPForm.$visible">
+			<table id="componentTable" class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Title</th>
+						<th>Duration (in minutes)</th>
+						<th>Sequence</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-model="thirdlc.fullThirdLevel[thirdLevelItem.id].lessonPlans"
+						ng-repeat="lessonPlanItem in thirdlc.fullThirdLevel[thirdLevelItem.id].lessonPlans | orderBy:'title' track by $index">
+
+						<td><a href="#" ng-bind="lessonPlanItem.lessonPlanId" editable-text="lessonPlanItem.lessonPlanId" onbeforesave="lpc.updateLessonPlanId(lessonPlanItem, $data)"></a></td>
+						<td><a href="#" ng-bind="lessonPlanItem.title" editable-text="lessonPlanItem.title" onbeforesave="lpc.updateTitle(lessonPlanItem, $data)"></a></td>
+						<td><a href="#" ng-bind="lessonPlanItem.duration" editable-text="lessonPlanItem.duration" onbeforesave="lpc.updateDuration(lessonPlanItem, $data)"></a></td>
+						<td><a href="#" ng-bind="lessonPlanItem.sortId" editable-text="lessonPlanItem.sortId" onbeforesave="lpc.updateSortId(lessonPlanItem, $data)"></a></td>
+						<td><a class="pull-right text-right" data-nodrag ng-click="lpc.delete(lessonPlanItem, 'thirdlevel')"><i class="fa fa-times"></i></a></td>
+						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

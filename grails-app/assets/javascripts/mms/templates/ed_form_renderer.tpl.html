@@ -1,0 +1,233 @@
+<div class="panel panel-filled panel-c-white"
+    ng-controller="EdController as edController">
+
+    <div class="panel-heading">
+        <div class="panel-tools"
+            ng-show="!editableEdForm.$visible">
+            <div class="btn-group pull-right text-right">
+                <!-- button to show form -->
+                <button class="btn btn-default btn-sm" type="button"
+                    ng-click="edController.setCurrentAddContent(contentc.fullContent[contentItem.id]);editableEdForm.$show()"
+                    ng-show="contentc.fullContent[contentItem.id].ed.id == null">
+                    <i class="fa fa-plus-square-o"></i> Add Ed
+                </button>
+            </div>
+        </div>
+
+        <span><a class="panel-toggle"
+            ng-click="toggleEd=!toggleEd">
+            <i class="fa"
+                ng-class="{'fa-chevron-down':toggleEd ,'fa-chevron-right': !toggleEd}"
+                ng-show="contentc.fullContent[contentItem.id].ed.id != null"></i></a>
+            Ed Values</span>
+    </div>
+
+    <form class="form-horizontal" editable-form
+        name="editableEdForm"
+        ng-show="editableEdForm.$visible"
+        ng-submit="edController.addEdContent();editableEdForm.$cancel();toggleEd">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-6 control-label">Media Type</label>
+                    <div class="col-md-6">
+                        <input type="text"
+                            tabindex="1"
+                            name="mediaType" class="form-control"
+                            ng-model="edController.newMediaType" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Tool-Type</label>
+                    <div class="col-md-2">
+                        <input type="number"
+                            tabindex="2"
+                            name="toolType" class="form-control"
+                            ng-model="edController.newToolType" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group pull-right text-right">                    
+                    <button type="submit" class="btn btn-accent" tabindex="101">
+                        <i class="fa pe-7s-plus"></i> Save
+                    </button>
+                    <button type="button" class="btn btn-default" tabindex="102"
+                        ng-click="editableEdForm.$cancel()">
+                        <i class="fa pe-7s-close-circle"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-6 control-label">Instructional Purpose</label>
+                    <div class="col-md-6">
+                        <input type="text"
+                            tabindex="3"
+                            name="instructionalPurpose" class="form-control"
+                            ng-model="edController.newInstructionalPurpose" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Hierarchy</label>
+                    <div class="col-md-2">
+                        <input type="number"
+                            tabindex="4"
+                            name="instructionalPurposeHierarchy" class="form-control"
+                            ng-model="edController.newInstructionalPurposeHierarchy" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-6 control-label">Component</label>
+                    <div class="col-md-6">
+                        <input type="text"
+                            tabindex="5"
+                            name="component" class="form-control"
+                            ng-model="edController.newComponent" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Hierarchy</label>
+                    <div class="col-md-2">
+                        <input type="number"
+                            tabindex="6"
+                            name="componentHierarchy" class="form-control"
+                            ng-model="edController.newComponentHierarchy" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-6 control-label">Pedagogical Focus</label>
+                    <div class="col-md-6">
+                        <input type="text"
+                            tabindex="7"
+                            name="pedagogicalPurpose" class="form-control" 
+                            ng-model="edController.newPedagogicalPurpose" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Hierarchy</label>
+                    <div class="col-md-2">
+                        <input type="number"
+                            tabindex="8" 
+                            name="pedagogicalPurposeHierarchy" class="form-control"
+                            ng-model="edController.newPedagogicalPurposeHierarchy" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div> 
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-6 control-label">Product Category</label>
+                    <div class="col-md-6">
+                        <input type="number"
+                            tabindex="9"
+                            name="productCategory"
+                            class="form-control" ng-model="edController.newProductCategory" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group"></div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </form> 
+
+    <div class="panel-body"
+        ng-show="toggleEd && contentc.fullContent[contentItem.id].ed.id != null">
+        <div class="table-responsive"
+            ng-show="!editableEdForm.$visible">
+            <table class="table table-striped table-hover"
+                ng-show="contentc.fullContent[contentItem.id].ed.id != null">
+                <thead>
+                    <tr>
+                        
+                        <th>Media Type</th>
+                        <th>Tool-Type</th> 
+                        <th>Instructional Purpose</th> 
+                        <th>Hierarchy</th> 
+                        <th>Component</th> 
+                        <th>Hierarchy</th>
+                        <th>Pedagogical Focus</th>
+                        <th>Hierarchy</th>
+                        <th>Product Category</th>   
+                        <th>delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+                     <td><a href="#" data-inputclass="form-control"
+                            editable-text="contentc.fullContent[contentItem.id].ed.mediaType"                           
+                            onaftersave="edController.updateMediaType(contentc.fullContent[contentItem.id].ed, $data)">{{  contentc.fullContent[contentItem.id].ed.mediaType || 'Add Media Type' }}</a></td> 
+
+                        <td><a href="#" data-inputclass="form-control"
+                            editable-text="contentc.fullContent[contentItem.id].ed.toolType"                           
+                            onaftersave="edController.updateToolType(contentc.fullContent[contentItem.id].ed, $data)">{{ contentc.fullContent[contentItem.id].ed.toolType || 'Add ToolType' }}</a></td>
+                       
+
+                        <td><a href="#" data-inputclass="form-control"
+                            editable-text="contentc.fullContent[contentItem.id].ed.instructionalPurpose"                   
+                            onaftersave="edController.updateInstructionalPurpose(contentc.fullContent[contentItem.id].ed, $data)">{{ contentc.fullContent[contentItem.id].ed.instructionalPurpose || 'Add Instructional Purpose' }}</a></td> 
+
+                         <td><a href="#" data-inputclass="form-control"
+                            editable-number="contentc.fullContent[contentItem.id].ed.instructionalPurposeHierarchy"                   
+                            onaftersave="edController.updateInstructionalPurposeHierarchy(contentc.fullContent[contentItem.id].ed, $data)">{{ contentc.fullContent[contentItem.id].ed.instructionalPurposeHierarchy || 'Add Hierarchy' }}</a></td>
+
+                        <td><a href="#" data-inputclass="form-control"
+                            editable-text="contentc.fullContent[contentItem.id].ed.component"                     
+                            onaftersave="edController.updateComponent(contentc.fullContent[contentItem.id].ed, $data)">{{ contentc.fullContent[contentItem.id].ed.component || 'Add Component' }}</a></td> 
+
+                        <td><a href="#" data-inputclass="form-control"
+                            editable-number="contentc.fullContent[contentItem.id].ed.componentHierarchy"                     
+                            onaftersave="edController.updateComponentHierarchy(contentc.fullContent[contentItem.id].ed, $data)">{{ contentc.fullContent[contentItem.id].ed.componentHierarchy || 'Add Hierarchy' }}</a></td> 
+
+                         <td><a href="#" data-inputclass="form-control"
+                            editable-text="contentc.fullContent[contentItem.id].ed.pedagogicalPurpose"                     
+                            onaftersave="edController.updatePedagogicalPurpose(contentc.fullContent[contentItem.id].ed, $data)">{{ contentc.fullContent[contentItem.id].ed.pedagogicalPurpose || 'Add Pedagogical Purpose' }}</a></td>
+
+                        <td><a href="#" data-inputclass="form-control"
+                            editable-number="contentc.fullContent[contentItem.id].ed.pedagogicalPurposeHierarchy"                     
+                            onaftersave="edController.updatePedagogicalPurposeHierarchy(contentc.fullContent[contentItem.id].ed, $data)">{{ contentc.fullContent[contentItem.id].ed.pedagogicalPurposeHierarchy || 'Add Hierarchy' }}</a></td>
+
+                        <td><a href="#" data-inputclass="form-control"
+                            editable-number="contentc.fullContent[contentItem.id].ed.productCategory"                        
+                            onaftersave="edController.updateProductCategory(contentc.fullContent[contentItem.id].ed, $data)">{{ contentc.fullContent[contentItem.id].ed.productCategory || 'Add Product Category' }}</a></td>
+                                               
+                        <td><a class="pull-right" data-nodrag
+                            ng-click="edController.delete(contentc.fullContent[contentItem.id].ed)"><i
+                                class="fa fa-times"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

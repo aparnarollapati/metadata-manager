@@ -1,0 +1,7 @@
+import hmh.mms.Reader
+
+model {
+	Reader reader
+}
+
+json tmpl.reader(reader)

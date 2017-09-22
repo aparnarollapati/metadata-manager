@@ -1,0 +1,7 @@
+import hmh.mms.ComponentSpec
+
+model {
+	ComponentSpec componentSpec
+}
+
+json g.render(componentSpec, [excludes:['program']])

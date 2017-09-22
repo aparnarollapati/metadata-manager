@@ -1,0 +1,7 @@
+import hmh.mms.level.FourthLevel
+
+model {
+	FourthLevel fourthLevel
+}
+
+json g.render(fourthLevel, [excludes:['content', 'grades', 'keywords', 'program', 'standards', 'thirdLevel']])

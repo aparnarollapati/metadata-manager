@@ -1,0 +1,9 @@
+import hmh.mms.Strand
+
+model {
+	Strand strand
+}
+
+json g.render(strand){
+id strand.id;       //  Need to have this here or else the id is not returned at the content level nested under a program
+}

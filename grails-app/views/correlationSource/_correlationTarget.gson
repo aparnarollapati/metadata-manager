@@ -1,0 +1,13 @@
+import hmh.mms.correlation.CorrelationTarget
+
+model {
+	CorrelationTarget correlationTarget
+}
+
+json g.render(correlationTarget, [excludes:['correlation', 'product']]){
+	
+	
+	product tmpl.product(correlationTarget.product)
+	contentTargets tmpl.contentTarget(correlationTarget.contentTarget)	
+	
+}

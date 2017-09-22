@@ -1,0 +1,8 @@
+// associated controllers index method was changed to pass in a list of Programs
+import hmh.mms.Program
+
+model {
+	Iterable<Program> programList
+}
+
+json tmpl.program(programList ?: [])

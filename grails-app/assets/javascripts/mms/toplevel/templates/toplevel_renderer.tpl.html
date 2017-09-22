@@ -1,0 +1,176 @@
+<div class="panel panel-filled panel-c-white" ng-controller="LevelGradeController as prgr">
+	<div class="panel-heading">
+		<div class="panel-tools">
+			<div class="btn-group pull-right text-right">
+                <!-- Title -->
+
+                    <span 
+                        style="border:1px 1px 1px 1px" class="btn btn-default btn-sm bold"  ng-show="topLevelItem.title == null || topLevelItem.title == ''"><a href="#" data-inputclass="form-control"
+                        editable-text="topLevelItem.title"                  
+                        onaftersave="tl.updateTitle(topLevelItem, $data)"><i class="fa fa-edit"></i> Add Title</a>
+                    </span>
+          
+                <!-- Non-Grade Title -->
+               
+                    <span   
+                         style="border:1px 1px 1px 1px" class="btn btn-default btn-sm bold" ng-show="topLevelItem.nonGradeLevel == null"><a href="#" data-inputclass="form-control"
+                        editable-text="topLevelItem.nonGradeLevel"                  
+                        onaftersave="tl.updateNonGradeLevel(topLevelItem, $data)"><i class="fa fa-edit"></i> Add Non-Grade Level</a>
+                    </span>
+   
+                 <!-- Grade Title -->
+               
+                    <span 
+                        style="border:1px 1px 1px 1px" class="btn btn-default btn-sm bold" ng-show="topLevelItem.nonGradeTitle == null"><a href="#" data-inputclass="form-control"
+                        editable-text="topLevelItem.nonGradeTitle"                  
+                        onaftersave="tl.updateNonGradeTitle(topLevelItem, $data)"><i class="fa fa-edit"></i> Add Non-Grade Title</a>
+                    </span>
+               
+
+                <!-- Additional Grade -->
+        
+                    <span style="border:1px 1px 1px 1px" class="btn btn-default btn-sm bold"><a href="#" data-inputclass="form-control"
+                        editable-select="gradeItem.grade" e-name="grade" e-ng-options="p.value as p.text for p in ::prgr.gradeOptions"  onbeforesave="tl.updateCurrentGrades(topLevelItem, $data)"><i class="fa fa-edit"></i> Add Multi-Grade</a>
+                    </span>
+   
+
+                <!-- Delete Button -->
+				<button class="btn btn-default btn-sm" type="button" ng-click="tl.delete(topLevelItem)">
+					<i class="fa fa-trash-o"></i> <span class="bold">Delete</span>
+				</button>
+			</div>
+		</div>
+		<a class="panel-toggle" ng-click="toggleGradeLevel=!toggleGradeLevel"><i class="fa" ng-class="{'fa-chevron-down': toggleGradeLevel,'fa-chevron-right': !toggleGradeLevel}"></i></a> 
+		<a href="#" data-inputclass="form-control" ng-bind="topLevelItem.title" editable-text="topLevelItem.title" onbeforesave="tl.updateTitle(topLevelItem, $data)"></a> 
+		<a href="#" data-inputclass="form-control" ng-bind="topLevelItem.nonGradeLevel" editable-text="topLevelItem.nonGradeLevel" onbeforesave="tl.updateNonGradeLevel(topLevelItem, $data)"></a> 
+		<a href="#" data-inputclass="form-control" ng-bind="topLevelItem.nonGradeTitle" editable-text="topLevelItem.nonGradeTitle" onbeforesave="tl.updateNonGradeTitle(topLevelItem, $data)"></a> 
+		<span ng-show="topLevelItem.grades[0] != null">( Level Grades <span ng-model="topLevelItem.grades" ng-repeat="gradeItem in topLevelItem.grades | orderBy:'guiOrdering' track by $index" data-inputclass="form-control" editable-select="gradeItem.grade" e-name="grade" e-ng-options="p.value as p.text for p in ::prgr.gradeOptions" onbeforesave="prgr.updateGradeGrade(gradeItem, $data)">{{gradeItem.grade}}<span ng-show="$index < topLevelItem.grades.length - 1">, </span></span> )</span>
+	</div>
+	<div class="panel-body" ng-show="toggleGradeLevel" ng-controller="ContentController as contentc">
+		
+		<ng-include src="'toplevel/lessonplans_renderer.html'"></ng-include>
+		<ng-include src="'toplevel/levelkeywords_renderer.html'"></ng-include>		
+        <ng-include src="'toplevel/levelstandards_renderer.html'"></ng-include>
+        
+		
+        <div>      
+        <!-- Content Instances -->
+            <ng-include src="'toplevel/contents_renderer.html'"></ng-include>
+
+            <!--  Content Form -->
+		    <form class="form-horizontal" editable-form name="editableTopContentForm" ng-show="editableTopContentForm.$visible">
+		        <a name="topLevelContentForm"></a>
+		        <ng-include src="'toplevel/content_form_renderer.html'"></ng-include>
+		    </form>
+          
+            <!-- Content Detail -->
+            <div class="panel panel-filled panel-c-accent" ng-show="pc.accordian.toggleTopContentList[contentItem.id]" ng-repeat="contentItem in topLevelItem.content | orderBy:'sortId'">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="panel-close" ng-click="pc.accordian.toggleTopContentList[contentItem.id]=!pc.accordian.toggleTopContentList[contentItem.id];pc.accordian.toggleTopContentTable[topLevelItem.id]=!pc.accordian.toggleTopContentTable[topLevelItem.id]"><i class="fa fa-times"></i></a>
+                    </div>
+                    <a class="panel-toggle" ng-click="pc.accordian.toggleTopContentList[contentItem.id]=!pc.accordian.toggleTopContentList[contentItem.id];pc.accordian.toggleTopContentTable[topLevelItem.id]=!pc.accordian.toggleTopContentTable[topLevelItem.id]"><i class="fa" ng-class="{'fa-chevron-down':pc.accordian.toggleTopContentList[contentItem.id] ,'fa-chevron-right': !pc.accordian.toggleTopContentList[contentItem.id]}"></i></a>
+                    <!-- Add Content Table -->
+                    <div class="table-responsive" ng-show="!editableTopContentForm.$visible && !editableTopLevelCRForm.$visible">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Lesson Plan</th>
+                                    <th>Instructional Segment</th>
+                                    <th>Strand</th>
+                                    <th>Sort ID</th>
+                                    <th>Display Title</th>
+                                    <th>Component</th>
+                                    <th class="text-right">edit</th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>   
+                                    <td>{{contentItem.lessonPlan.title}}</td>
+                                    <td>{{contentItem.segment.title}}</td>
+                                    <td>{{contentItem.strand.title}}</td>
+                                    <td>{{contentItem.sortId}}</td>
+                                    <td>{{contentItem.displayTitle}}</td>
+                                    <td>{{contentItem.component.component}}</td>
+                                    <td class="text-right"><a href="#topLevelContentForm" ng-click="contentc.editContent(false, topLevelItem, false);contentc.notClone();editableTopContentForm.$show()"><i class="fa fa-edit"></i></a></td>                                   
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>                    
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-filled">
+                        <div class="panel-body">
+                            <!-- Reader - only one or none allowed -->
+                            <ng-include src="'reader_form_renderer.html'"></ng-include>
+                            <ng-include src="'ed_form_renderer.html'"></ng-include>
+                            <ng-include src="'keywords_renderer.html'"></ng-include>
+                            <ng-include src="'commoncartridgekeywords_renderer.html'"></ng-include>
+                            <ng-include src="'standards_renderer.html'"></ng-include>
+                            <ng-include src="'edstandards_renderer.html'"></ng-include>
+                            <ng-include src="'mywritesmarts_renderer.html'"></ng-include>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Content Detail End --> 
+           
+	</div>
+        <!-- Content End -->
+	    <!-- Second Levels, we get the name from SecondLevelScope value at the program level  -->
+    	<div class="panel panel-filled panel-c-white" ng-controller="SecondLevelController as secondlc" ng-show="pc.currentFullProgram.secondLevelScope != null && pc.currentFullProgram.secondLevelScope != ''">
+    		<div class="panel-heading">
+    			<div class="panel-tools" ng-show="!editablesecondlForm.$visible">
+    				<div class="btn-group pull-right text-right">
+    					<!-- button to show form -->
+    					<!-- Only allow them to add in the next level down if they have set it's scope value at the program level  -->
+    					<button class="btn btn-default btn-sm" type="button" ng-click="editablesecondlForm.$show()" ng-show="pc.currentFullProgram.secondLevelScope != null && pc.currentFullProgram.secondLevelScope != ''">
+    						<i class="fa fa-plus-square-o"></i> Add {{pc.currentFullProgram.secondLevelScope}}
+    					</button>
+    				</div>
+    			</div>
+    			<span ng-show="pc.currentFullProgram.secondLevelScope != null"><a ng-show="topLevelItem.secondLevels[0] != null" class="panel-toggle" ng-click="pc.accordian.toggleSecondL[topLevelItem.id]=!pc.accordian.toggleSecondL[topLevelItem.id]"><i class="fa" ng-class="{'fa-chevron-down':pc.accordian.toggleSecondL[topLevelItem.id] ,'fa-chevron-right': !pc.accordian.toggleSecondL[topLevelItem.id]}"></i></a> {{pc.currentFullProgram.secondLevelScope}}s
+                </span>
+    		</div>
+
+    		<form class="form-horizontal" editable-form name="editablesecondlForm" ng-show="editablesecondlForm.$visible" ng-submit="secondlc.addSecondLevel(topLevelItem);editablesecondlForm.$cancel();">
+    			<div class="row">
+    				<div class="col-md-4">
+    					<div class="form-group required">
+    						<label for="hierarchy" class="col-sm-6 control-label">Hierarchy</label>
+    						<div class="col-md-6">
+    							<input type="number" min="0" step="1" placeholder="" class="form-control input-no-spinner input-fix-mousewheel2" ng-model="secondlc.newHierarchy" required>
+    						</div>
+    					</div>
+    				</div>
+    				<div class="col-md-6">
+    					<div class="form-group">
+    						<label for="title" class="col-sm-2 control-label">Title</label>
+    						<div class="col-md-8">
+    							<input name="newTitle" class="form-control" ng-model="secondlc.newTitle" />
+    						</div>
+    					</div>
+    				</div>
+    				<div class="col-md-2">
+    					<div class="btn-group pull-right text-right" ng-show="editablesecondlForm.$visible">
+    						<!-- buttons to submit / cancel form -->
+    						<button type="submit" class="btn btn-accent">
+    							<i class="fa pe-7s-plus"></i> Save
+    						</button>
+    						<button type="button" class="btn btn-default" ng-click="editablesecondlForm.$cancel()">
+    							<i class="fa pe-7s-close-circle"></i> Cancel
+    						</button>
+    					</div>
+    				</div>
+    			</div>
+    		</form>
+    		<div class="panel-body" ng-show="pc.accordian.toggleSecondL[topLevelItem.id] && topLevelItem.secondLevels[0] != null && !editablesecondlForm.$visible && pc.currentFullProgram.secondLevelScope != null && pc.currentFullProgram.secondLevelScope != ''">
+    			<ol ui-tree-nodes ng-model="topLevelItem.secondLevels">
+    				<li ui-tree-node ng-repeat="secondLevelItem in topLevelItem.secondLevels | orderBy:'hierarchy' track by $index" ng-include="'secondlevel/secondlevel_renderer.html'" collapsed="true;" data-collapsed="true" />
+    			</ol>
+    		</div>
+    	</div>    
+    </div>
+</div>

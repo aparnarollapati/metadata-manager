@@ -1,0 +1,7 @@
+import hmh.mms.StandardSet
+
+model {
+	StandardSet standardSet
+}
+
+json tmpl.standardSet(standardSet)

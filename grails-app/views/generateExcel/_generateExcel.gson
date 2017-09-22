@@ -1,0 +1,7 @@
+import hmh.mms.GenerateExcel
+
+model {
+	GenerateExcel generateExcel
+}
+
+json g.render(generateExcel, [excludes:['program']])

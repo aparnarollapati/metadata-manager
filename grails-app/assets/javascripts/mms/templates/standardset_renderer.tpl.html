@@ -1,0 +1,10 @@
+<!-- Program staandardsets list view and edit form -->
+<div class="angular-ui-tree-handle" ui-tree="treeProgramStandardSet">
+	<a href="#" ng-bind="standardSetItem.name"
+		data-title="Enter Standard Set Name"
+		editable-text="standardSetItem.name"
+		onbeforesave="sset.updateName(standardSetItem, $data)"></a> <a
+		class="pull-right" data-nodrag ng-click="sset.delete(standardSetItem)">
+		<i class="fa fa-times"></i>
+	</a>
+</div>

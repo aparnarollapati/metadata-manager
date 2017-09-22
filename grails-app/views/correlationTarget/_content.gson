@@ -1,0 +1,12 @@
+import hmh.mms.Content
+
+model {
+	Content content
+}
+
+json g.render(content, [excludes:['component',  'topLevel', 'secondLevel', 'thirdLevel', 'fourthLevel', 'fifthLevel', 'segment', 'strand', 'lessonPlan'] , includes:['id', 'displayTitle','product']]){
+	
+   location "correlationTarget"
+	
+	
+}

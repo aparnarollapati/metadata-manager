@@ -1,0 +1,62 @@
+<div class="panel panel-filled panel-c-info" ng-controller="ComponentSpecController as prcs">
+    <div class="panel-heading" >
+        <a class="panel-toggle" ng-show="productItem.components[0] != null" 
+        ng-click="togglePRCS=!togglePRCS">
+        <i class="fa" ng-class="{'fa-chevron-down': togglePRCS,'fa-chevron-right': !togglePRCS}"></i></a> 
+            Components
+            <div class="panel-tools" ng-show="!editablePRCAForm.$visible">
+                <div class="btn-group pull-right text-right">
+                    <!-- button to show form -->
+                    <button class="btn btn-default btn-sm" type="button"
+                        ng-click="editablePRCAForm.$show()">
+                        <i class="fa fa-plus-square-o"></i> Associate Component
+                    </button>
+                </div>
+            </div>
+    </div>   
+    <form class="form-horizontal" editable-form name="editablePRCAForm" ng-show="editablePRCAForm.$visible" 
+    ng-submit="prc.associateWithComponent(productItem);editablePRCAForm.$cancel();">  
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Component</label>
+                <div class="col-md-10">
+                   <select class="form-control" name="selectedComponentSpec"
+                        ng-model="prc.newComponent"
+                        ng-options="component.id as (component.component + ' (' + component.componentType + ') ' + 'H' + component.componentHierarchy + '-TT' + component.toolType) group by component.categorization for component in pc.fullProgram[programItem.id].components track by component.id | orderBy:'component'">
+                        <option label="" value=""></option>
+                   </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="btn-group pull-right text-right" ng-show="editablePRCAForm.$visible">
+                <!-- buttons to submit / cancel form -->
+                <button type="submit" class="btn btn-primary"><i class="fa pe-7s-plus"></i> Save</button>
+                <button type="button" class="btn btn-default" ng-click="editablePRCAForm.$cancel()"><i class="fa pe-7s-close-circle"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+    </form>             
+    <div class="panel-body" ng-show="togglePRCS && productItem.components[0] != null && !editablePRCAForm.$visible">      
+       <div class="table-responsive" >
+            <table datatable="ng" id="componentTable" class="table table-striped table-hover" >
+                <thead>
+                    <tr>
+                        <th>ISBN</th>
+                        <th>Title</th>
+                        <th>Component</th>
+                        <th>Hierarchy</th>
+                        <th>Type</th>
+                        <th>Categorization</th>
+                        <th>Tool Type</th>
+                        <th>Disassociate from product</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-model="productItem.components" ng-repeat="componentItem in productItem.components | orderBy:'componentHierarchy' track by $index" ng-include="'cpspec_product_renderer.html'" />
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

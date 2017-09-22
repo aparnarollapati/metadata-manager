@@ -1,0 +1,20 @@
+import hmh.mms.level.TopLevel
+
+model {
+	TopLevel topLevel
+}
+
+json g.render(topLevel){
+
+    version "toplevelslist"
+    templateName "program/_topLevel.gson"     
+    
+	content tmpl.content(topLevel.content) 
+	lessonPlans tmpl.lessonPlan(topLevel.lessonPlans)
+	grades tmpl.levelGrade(topLevel.grades)
+	keywords tmpl.levelKeyword(topLevel.keywords)
+	standards tmpl.levelStandard(topLevel.standards)
+	//  Request the detailed version of these seperately
+	secondLevels tmpl.'/toplevelslist/secondLevel'(topLevel.secondLevels)    	
+
+}

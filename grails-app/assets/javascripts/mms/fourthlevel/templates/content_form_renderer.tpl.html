@@ -1,0 +1,688 @@
+<!-- Renders the inputs for the new content (resource) form -->
+<!-- Warn users as they wont be able to save their resource until they add the associated items -->
+<div class="row" ng-show="pc.fullProgram[programItem.id].products[0] == null">
+    <div class="col-md-2"></div>
+    <div class="col-md-7">
+        <span class="btn btn-w-md btn-default btn-warning">You must
+            create at least one product before you can create resources!</span>
+    </div>
+    <div class="col-md-3">
+        <div class="btn-group pull-right text-right"
+            ng-show="editableFourthContentForm.$visible">
+            <button type="button" class="btn btn-default"
+                ng-click="editableFourthContentForm.$cancel()">
+                <i class="fa pe-7s-close-circle"></i> Cancel
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="pc.fullProgram[programItem.id].strands[0] == null">
+	<div class="col-md-2"></div>
+	<div class="col-md-7">
+		<span class="btn btn-w-md btn-default btn-warning">You must
+			create at least one strand before you can create resources!</span>
+	</div>
+	<div class="col-md-3">
+		<div class="btn-group pull-right text-right"
+			ng-show="editableFourthContentForm.$visible">
+			<button type="button" class="btn btn-default"
+				ng-click="editableFourthContentForm.$cancel()">
+				<i class="fa pe-7s-close-circle"></i> Cancel
+			</button>
+		</div>
+	</div>
+</div>
+<div class="row" ng-show="pc.fullProgram[programItem.id].segments[0] == null">
+	<div class="col-md-2"></div>
+	<div class="col-md-7">
+		<span class="btn btn-w-md btn-default btn-warning">You must
+			create at least one instructional segment before you can create
+			resources!</span>
+	</div>
+	<div class="col-md-3">
+		<div class="btn-group pull-right text-right"
+			ng-show="editableFourthContentForm.$visible">
+			<button type="button" class="btn btn-default"
+				ng-click="editableFourthContentForm.$cancel()">
+				<i class="fa pe-7s-close-circle"></i> Cancel
+			</button>
+		</div>
+	</div>
+</div>
+<div ng-show="pc.fullProgram[programItem.id].segments[0] != null && pc.fullProgram[programItem.id].strands[0] != null">
+    <div class="row" ng-show="contentc.clone">
+       <div class="col-md-10">
+            <!-- Allow cloning to a different level -->
+            <!-- Other fourth level -->
+            <div class="form-group required">
+                <label for="contentItem.product" class="col-sm-2 control-label">Clone to</label>
+                <div class="col-md-10">
+                    <!-- List fourth levels here  -->    
+                    <select class="form-control" name="selectedlevelItem"
+                        ng-model="contentc.levelItem"                      
+                        ng-options="fourthLevel as (fourthLevel.hierarchy + ' : ' + fourthLevel.title) for fourthLevel in thirdlc.fullThirdLevel[thirdLevelItem.id].fourthLevels | orderBy:'hierarchy' track by fourthLevel.id"
+                        required></select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="btn-group pull-right text-right"
+                ng-show="editableFourthContentForm.$visible">
+                <!-- buttons to submit / cancel form -->
+                <button type="button" class="btn btn-accent" ng-disabled="contentc.disableSaveButton()" ng-click="contentc.createOrEditContentFourthLevel(); editableFourthContentForm.$cancel();">
+                    <i class="fa pe-7s-plus"></i> Save
+                </button>
+            </div>
+        </div>
+    </div>
+	<div class="row">
+		<div class="col-md-10">
+			<div class="form-group required">
+				<label for="contentItem.product" class="col-sm-2 control-label">Choose a product</label>
+				<div class="col-md-10">
+					<select class="form-control" name="selectedProductItem"
+						ng-model="contentc.content.product"
+						ng-options="product as (product.isbn + ' ' +  product.title) for product in pc.fullProgram[programItem.id].products | matchGrades:topLevelItem.grades | orderBy:['title', 'grades[0].guiOrdering'] track by product.id"
+						required></select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="btn-group pull-right text-right"
+				ng-show="editableFourthContentForm.$visible && !contentc.clone">
+				<!-- buttons to submit / cancel form -->
+				<button type="button" class="btn btn-accent" ng-disabled="contentc.disableSaveButton()" ng-click="contentc.createOrEditContentFourthLevel(); editableFourthContentForm.$cancel();">
+					<i class="fa pe-7s-plus"></i> Save
+				</button>
+			</div>
+			<div class="btn-group pull-right text-right"
+                ng-show="editableFourthContentForm.$visible && contentc.clone">
+                <!-- buttons to clear the form.  could be needed after an edit or clone that isnt saved -->
+                <button type="button" class="btn btn-default"
+                    ng-click="contentc.clear();">
+                    <i class="fa pe-7s-close-circle"></i> Clear
+                </button>
+                <button type="button" class="btn btn-default"
+                    ng-click="contentc.clear();editableFourthContentForm.$cancel()">
+                    <i class="fa pe-7s-close-circle"></i> Cancel
+                </button>
+            </div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-10">
+			<div class="form-group required">
+				<label for="contentItem.language" class="col-sm-2 control-label">Language</label>
+				<div class="col-md-10">
+					<select class="form-control" name="newLanguage"
+						ng-model="contentc.content.language"
+						ng-options="p.value as p.text for p in ::pc.languageOptions | orderBy:'text'"
+						required></select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2">
+            <div class="btn-group pull-right text-right"
+                ng-show="editableFourthContentForm.$visible && !contentc.clone">
+                <!-- buttons to clear the form.  could be needed after an edit or clone that isnt saved -->
+                <button type="button" class="btn btn-default"
+                    ng-click="contentc.clear();">
+                    <i class="fa pe-7s-close-circle"></i> Clear
+                </button>
+                <button type="button" class="btn btn-default"
+                    ng-click="editableFourthContentForm.$cancel()">
+                    <i class="fa pe-7s-close-circle"></i> Cancel
+                </button>
+            </div>
+        </div>
+	</div>
+	<div class="row">
+		<div class="col-md-10">
+			<div class="form-group required">
+				<label for="contentItem.displayTitle" class="col-sm-2 control-label">Display
+					Title</label>
+				<div class="col-md-10">
+					<input type="text" name="newDisplayTitle"
+						class="form-control"
+						ng-model="contentc.content.displayTitle" 
+						minlength="1"
+						maxlength="200" 
+						required/>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-2"></div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-10">
+			<div class="form-group">
+				<label for="contentItem.commonCartridgeTitle" class="col-sm-2 control-label">CC Display
+					Title</label>
+				<div class="col-md-10">
+					<input type="text" name="newCommonCartridgeTitle"
+						placeholder="(Leave blank if identical to Display Title)" 
+						class="form-control"
+						ng-model="contentc.content.commonCartridgeTitle" 
+						minlength="1"
+						maxlength="200" />						
+				</div>
+			</div>
+		</div>
+    <div class="col-md-2"></div>         
+	</div>
+	<div class="row">
+		<div class="col-md-10">
+			<div class="form-group">
+				<label for="contentItem.meaningfulDescription"
+					class="col-sm-2 control-label">Meaningful Description</label>
+				<div class="col-md-10">
+					<textarea rows="3" name="newMeaningfulDescription"
+						class="form-control"
+						ng-model="contentc.content.meaningfulDescription" maxlength="1000"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-10">
+			<div class="form-group">
+				<label for="contentItem.uri" class="col-sm-2 control-label">URI</label>
+				<div class="col-md-10">
+					<input type="text" name="newUri" class="form-control"
+						ng-change="contentc.setMediaType()"
+						ng-model="contentc.content.uri" />
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-2"></div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group required">
+				<label for="contentItem.instructionalSegment"
+					class="col-sm-4 control-label">Instructional Segment</label>
+				<div class="col-md-8">
+					<select class="form-control" name="selectedSegmentItem"
+						ng-model="contentc.content.segment"
+						ng-options="segment as segment.title for segment in pc.fullProgram[programItem.id].segments track by segment.id | orderBy:'title'"
+						required></select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group required">
+				<label for="contentItem.strand" class="col-sm-4 control-label">Strand</label>
+				<div class="col-md-8">
+					<select class="form-control" name="selectedStrandItem"
+						ng-model="contentc.content.strand"
+						ng-options="strand as strand.title for strand in pc.fullProgram[programItem.id].strands track by strand.id | orderBy:'title'"
+						required></select>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-2"></div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.lessonPlan" class="col-sm-4 control-label">Lesson
+					Plan</label>
+				<div class="col-md-8">
+					<select class="form-control" name="selectedLessonPlanItem"
+						ng-model="contentc.content.lessonPlan"
+						ng-options="lessonplan as lessonplan.title for lessonplan in fourthlc.fullFourthLevel[fourthLevelItem.id].lessonPlans track by lessonplan.id | orderBy:'title'">
+						<option label="" value=""></option>
+						</select>
+				</div>
+			</div>
+		</div>
+		  <div class="col-md-5">
+                        <div class="form-group required"> 
+                            <label for="contentItem.component" class="col-sm-4 control-label" ng-show="contentc.content.product || contentc.content.component">Component</label>
+                            <div class="col-md-8" ng-show="contentc.content.product || contentc.content.component">
+                                <select class="form-control" name="selectedComponentItem"
+                                ng-change="contentc.setBooleanDefaults()" 
+                                ng-model="contentc.content.component" 
+                                ng-options="component as (component.component + ' (' + component.componentType + ') ' + 'H' + component.componentHierarchy + '-TT' + component.toolType) group by component.categorization for component in contentc.content.product.components track by component.id | orderBy:'component'" 
+                                required></select>                                                                   
+                            </div>
+                        </div> 
+                    </div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+
+		<div class="col-md-10">
+			<div class="form-group required">
+				<label for="contentItem.mediaType" class="col-sm-2 control-label">Media
+					Type</label>
+				<div class="col-md-10">
+					<select class="form-control" name="newMediaType"
+						ng-model="contentc.content.mediaType"
+						ng-options="p.mediaType as p.mediaType for p in mediaTypeMappingOptions"
+						required></select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<!--  Checkboxes -->
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.searchable" class="col-sm-4 control-label">Searchable</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newSearchable"
+						ng-model="contentc.content.searchable" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.reteach" class="col-sm-4 control-label">Reteach</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newReteach"
+						ng-model="contentc.content.reteach" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.viewable" class="col-sm-4 control-label">Viewable</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newViewable"
+						ng-model="contentc.content.viewable" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.enrich" class="col-sm-4 control-label">Enrich</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newEnrich"
+						ng-model="contentc.content.enrich" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.schedulable" class="col-sm-4 control-label">Schedulable</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newSchedulable"
+						ng-model="contentc.content.schedulable" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.difInst" class="col-sm-4 control-label">Differentiated
+					Instruction</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newDifInst"
+						ng-model="contentc.content.difInst" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.assignable" class="col-sm-4 control-label">Assignable</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newAssignable"
+						ng-model="contentc.content.assignable" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.resourcesPanelTe"
+					class="col-sm-4 control-label">Resources Panel TE</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newResourcesPanelTe"
+						ng-model="contentc.content.resourcesPanelTe" />
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.seFacing" class="col-sm-4 control-label">SE
+					Facing</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newSeFacing"
+						ng-model="contentc.content.seFacing"
+						ng-checked="contentc.content.freeplay==true" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.resourcesPanelSe"
+					class="col-sm-4 control-label">Resources Panel SE</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newResourcesPanelSe"
+						ng-model="contentc.content.resourcesPanelSe" />
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-md-2"></div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.freeplay" class="col-sm-4 control-label">Freeplay</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newFreeplay"
+						ng-model="contentc.content.freeplay" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.persistent" class="col-sm-4 control-label">Persistent</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newPersistent"
+						ng-model="contentc.content.persistent"
+						ng-checked="!contentc.content.active==false" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.teacherManaged"
+					class="col-sm-4 control-label">Teacher Managed</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newTeacherManaged"
+						ng-model="contentc.content.teacherManaged" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.active" class="col-sm-4 control-label">Active</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newActive"
+						ng-model="contentc.content.active" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<!-- new boolean -->
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.nonLocalResource"
+					class="col-sm-4 control-label">Non-Local Resource</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newNonLocalResource"
+						ng-model="contentc.content.nonLocalResource" />
+				</div>
+			</div>
+		</div>
+		<!--<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.placeholder" class="col-sm-4 control-label">PlaceHolder TODO</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="newPlaceHolder"
+						ng-model="contentc.content.placeholder" />
+				</div>
+			</div> 
+		</div>-->
+		<div class="col-md-2"></div>
+	</div>
+	<!-- end new boolean -->
+	<div class="row">
+
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.doneOwner" class="col-sm-4 control-label">Done Owner</label>
+				<div class="col-md-8">
+					<select class="form-control" name="newDoneOwner"
+						ng-model="contentc.content.doneOwner"
+						ng-options="p.value as p.text for p in pc.doneOwnerOptions | orderBy:'text'"></select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-10">
+			<div class="form-group">
+				<label for="contentItem.downloadUrl" class="col-sm-2 control-label">Download
+					Manifest URL</label>
+				<div class="col-md-10">
+					<input type="text" name="newDownloadUrl" class="form-control" ng-model="contentc.content.downloadUrl" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.card" class="col-sm-4 control-label">Card</label>
+				<div class="col-md-8">
+					<select class="form-control" name="newCard"
+						ng-model="contentc.content.card"
+						ng-options="p.value as p.text for p in ::pc.cardOptions"></select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.parentId" class="col-sm-4 control-label">Parent
+					Id</label>
+				<div class="col-md-8">
+					<input type="text" name="newParentId" class="form-control" ng-model="contentc.content.parentId" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.author" class="col-sm-4 control-label">Author</label>
+				<div class="col-md-8">
+					<input type="text" name="newAuthor" class="form-control" ng-model="contentc.content.author" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.title" class="col-sm-4 control-label">Title</label>
+				<div class="col-md-8">
+					<input type="text" name="newTitle" class="form-control" ng-model="contentc.content.title" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.genre" class="col-sm-4 control-label">Genre</label>
+				<div class="col-md-8">
+					<input type="text" name="newGenre" class="form-control" ng-model="contentc.content.genre" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.theme" class="col-sm-4 control-label">Theme</label>
+				<div class="col-md-8">
+					<input type="text" name="newTheme" class="form-control" ng-model="contentc.content.theme" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.textComplexity"
+					class="col-sm-4 control-label">Text Complexity</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" name="newtextComplexity" ng-model="contentc.content.textComplexity" />
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-5">
+			<div class="form-group required">
+				<label for="contentItem.sortId" class="col-sm-4 control-label">Sort
+					Id</label>
+				<div class="col-md-8">
+				    <!-- Cannot create, only edit after -->
+					<input type="number" ng-readonly="!contentc.content.sortId" ng-disabled="!contentc.content.sortId" name="newSortId" min="0" step="1"
+					    placeholder="Auto-generated - can be edited later."
+						max="2147483647"
+						class="form-control input-no-spinner input-fix-mousewheel2" ng-model="contentc.content.sortId" 
+						required/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.hmhId" class="col-sm-4 control-label">GUID</label>
+				<div class="col-md-8">
+				    <!-- Allow manual create if it is a PMT toolType. All GUIDs can be edited -->
+					<input type="text" 
+
+					ng-disabled="!contentc.content.id && !(contentc.content.component.toolType >= 7 && contentc.content.component.toolType <= 17 && contentc.content.component.toolType != 16)" 
+
+					ng-readonly="!contentc.content.id && !(contentc.content.component.toolType >= 7 && contentc.content.component.toolType <= 17 && contentc.content.component.toolType != 16)" 
+
+					name="newHmhId" placeholder="{{!contentc.content.id && !(contentc.content.component.toolType >= 7 && contentc.content.component.toolType <= 17 && contentc.content.component.toolType != 16) ? 'Auto-generated - can be edited later.' : ''}}" class="form-control"
+					
+					ng-model="contentc.content.hmhId" minlength="10" maxlength="32" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5" ng-show="contentc.content.uniqueId">
+			<div class="form-group">
+				<label for="contentItem.uniqueId" class="col-sm-4 control-label">Unique
+					Id</label>
+				<div class="col-md-8">
+					<input type="text" disabled readonly class="form-control" name="newUniqueId" ng-model="contentc.content.uniqueId" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<!--Legacy properties -->
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.frequency" class="col-sm-4 control-label">Frequency</label>
+				<div class="col-md-8">
+					<input type="text" name="newFrequency" class="form-control" ng-model="contentc.content.frequency" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.notes" class="col-sm-4 control-label">Notes</label>
+				<div class="col-md-8">
+					<input type="text" name="newNotes" class="form-control" ng-model="contentc.content.notes" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.itemId" class="col-sm-4 control-label">Item ID</label>
+				<div class="col-md-8">
+					<input type="text" name="newItemId" class="form-control" ng-model="contentc.content.itemId" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.strandNumber" class="col-sm-4 control-label">Strand Number</label>
+				<div class="col-md-8">
+					<input type="number" name="newStrandNumber" class="form-control" ng-model="contentc.content.strandNumber" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="contentItem.resourceType" class="col-sm-4 control-label">Resource Type</label>
+				<div class="col-md-8">
+					<select class="form-control" name="newResourceType"
+						ng-click = "contentc.getResourceTypeMappingOptions()"
+						ng-model="contentc.content.resourceType"
+						ng-options="p.resourceType as p.resourceType for p in contentc.resourceTypeMappingOptions"></select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<!-- end Legacy -->
+	<div class="row">
+		<div class="col-md-10">
+			<div class="form-group">
+				<label for="contentItem.meaningfulDescription"
+					class="col-sm-2 control-label">Additional Text</label>
+				<div class="col-md-10">
+					<textarea rows="3" name="newAdditionalText"
+						class="form-control"
+						ng-model="contentc.content.additionalText" maxLength="500"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2">
+            <div class="btn-group pull-right text-right"
+                ng-show="editableFourthContentForm.$visible">
+                <!-- buttons to submit / cancel form -->
+                <button type="button" class="btn btn-accent" ng-disabled="contentc.disableSaveButton()" ng-click="contentc.createOrEditContentFourthLevel(); editableFourthContentForm.$cancel();">
+                    <i class="fa pe-7s-plus"></i> Save
+                </button>
+                <button type="button" class="btn btn-default"
+                    ng-click="contentc.clear();editableFourthContentForm.$cancel()">
+                    <i class="fa pe-7s-close-circle"></i> Cancel
+                </button>
+            </div>
+        </div>
+	</div>
+</div>

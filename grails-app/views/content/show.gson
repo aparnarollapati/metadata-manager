@@ -1,0 +1,7 @@
+import hmh.mms.Content
+
+model {
+	Content content
+}
+
+json tmpl.content(content)

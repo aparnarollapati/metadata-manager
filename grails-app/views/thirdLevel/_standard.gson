@@ -1,0 +1,7 @@
+import hmh.mms.Standard
+
+model {
+	Standard standard
+}
+
+json g.render(standard, [excludes:['content']])

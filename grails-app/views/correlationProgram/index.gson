@@ -1,0 +1,8 @@
+import hmh.mms.Program
+
+model {
+	Iterable<Program> programList
+}
+
+json tmpl.program(programList ?: [])
+

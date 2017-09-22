@@ -1,0 +1,7 @@
+import hmh.mms.MyWriteSmart
+
+model {
+	MyWriteSmart myWriteSmart
+}
+
+json g.render(myWriteSmart, [excludes:['content']])

@@ -1,0 +1,51 @@
+ <div class="panel panel-filled panel-c-white" ng-controller="LevelStandardController as lsc">
+    <div class="panel-heading" >
+        <div class="panel-tools" ng-show="!editableTopLPForm.$visible">
+            <div class="btn-group pull-right text-right">
+                <!-- button to show form -->
+                <button class="btn btn-default btn-sm" type="button" ng-click="editableTopLSForm.$show()" ng-show="!editableTopLSForm.$visible">
+                    <i class="fa fa-plus-square-o"></i> Add Level Standard
+                </button>
+            </div>
+        </div>
+        <span><a class="panel-toggle" ng-show="topLevelItem.standards[0] != null" ng-click="toggleTopLS=!toggleTopLS">
+        <i class="fa" ng-class="{'fa-chevron-down':toggleTopLS ,'fa-chevron-right': !toggleTopLS}"></i></a> Level Standards
+        </span>
+    </div>  
+    <form class="form-horizontal" editable-form name="editableTopLSForm" ng-show="editableTopLSForm.$visible" 
+    ng-submit="lsc.addLevelStandardTopLevel(topLevelItem);editableTopLSForm.$cancel();">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="form-group required">
+                    <label class="col-sm-3 control-label">Level Standard</label>
+                    <div class="col-md-6">                     
+                        <input type="text" placeholder="( single value or comma-separated )" name="newStandard" class="form-control" ng-model="lsc.newStandard" required/> 
+                    </div>
+                </div> 
+            </div> 
+            <div class="col-md-3">
+                <div class="btn-group pull-right text-right" ng-show="editableTopLSForm.$visible">
+                    <!-- buttons to submit / cancel form -->
+                    <button type="submit" class="btn btn-accent"><i class="fa pe-7s-plus"></i> Save</button>
+                    <button type="button" class="btn btn-default" ng-click="editableTopLSForm.$cancel()"><i class="fa pe-7s-close-circle"></i> Cancel</button>
+                </div>
+             </div>    
+        </div>
+    </form>       
+    <div class="panel-body" ng-show="toggleTopLS && topLevelItem.standards[0] != null">      
+       <div class="table-responsive" ng-show="!editableTopLSForm.$visible">
+            <table id="componentTable" class="table table-striped table-hover" >
+                <tbody>
+                    <tr ng-model="topLevelItem.standards" ng-repeat="levelStandardItem in topLevelItem.standards | orderBy:'standard' track by $index" >
+
+                    <td><a href="#" ng-bind="levelStandardItem.standard" editable-text="levelStandardItem.standard" onbeforesave="lsc.updateLevelStandard(levelStandardItem, $data)"></a></td>
+
+                    <td><a class="pull-right" data-nodrag ng-click="lsc.delete(levelStandardItem, 'toplevel')">
+                    <i class="fa fa-times"></i></a></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>    

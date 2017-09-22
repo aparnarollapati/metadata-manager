@@ -1,0 +1,8 @@
+import hmh.mms.level.FifthLevel
+
+model {
+	Iterable<FifthLevel> fifthLevelList
+}
+
+json tmpl.fifthLevel(fifthLevelList ?: [])
+

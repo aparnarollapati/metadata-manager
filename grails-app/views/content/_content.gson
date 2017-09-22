@@ -1,0 +1,30 @@
+import hmh.mms.Content
+
+model {
+	Content content
+}
+
+json g.render(content, [excludes:['component', 'product', 'topLevel', 'secondLevel', 'thirdLevel', 'fourthLevel', 'fifthLevel', 'segment', 'strand', 'lessonPlan', 'standardSet']]){
+	
+	templateName 			"content/_content.gson"	
+	//tempProduct 			tmpl.product(content.product)
+	
+	uniqueId 				content.getUniqueId()
+	component 				tmpl.componentSpec(content.component)
+	product 				tmpl.product(content.product)
+	segment 				tmpl.instructionalSegment(content.segment)
+	strand					tmpl.strand(content.strand)
+	reader					tmpl.reader(content.reader?:[])
+	lessonPlan				tmpl.lessonPlan(content.lessonPlan?: [])
+	topLevel 				tmpl.topLevel(content.topLevel?: [])
+	secondLevel 			tmpl.secondLevel(content.secondLevel?: [])
+	thirdLevel 				tmpl.thirdLevel(content.thirdLevel?: [])
+	fourthLevel 			tmpl.fourthLevel(content.fourthLevel?: [])
+	fifthLevel 				tmpl.fifthLevel(content.fifthLevel?: [])
+	keywords 				tmpl.keyword(content.keywords)
+	commonCartridgeKeywords tmpl.commonCartridgeKeyword(content.commonCartridgeKeywords)
+	standards 				tmpl.standard(content.standards)
+	edStandards				tmpl.edStandard(content.edStandards)
+	mwsGuids 				tmpl.myWriteSmart(content.mwsGuids)
+	
+}

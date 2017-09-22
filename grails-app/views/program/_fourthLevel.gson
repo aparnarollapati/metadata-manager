@@ -1,0 +1,15 @@
+import hmh.mms.level.FourthLevel
+
+model {
+	FourthLevel fourthLevel
+}
+
+json g.render(fourthLevel){
+	
+	content tmpl.content(fourthLevel.content)
+	lessonPlans tmpl.lessonPlan(fourthLevel.lessonPlans)
+	keywords tmpl.levelKeyword(fourthLevel.keywords)
+	standards tmpl.levelStandard(fourthLevel.standards)
+	//  Request these seperately
+	//fifthLevels tmpl.fifthLevel(fourthLevel.fifthLevels)
+}

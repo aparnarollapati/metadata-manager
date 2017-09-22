@@ -1,0 +1,8 @@
+import hmh.mms.mapping.ComponentTypeMapping
+
+model {
+	Iterable<ComponentTypeMapping> componentTypeMappingList
+}
+
+json tmpl.componentTypeMapping(componentTypeMappingList ?: [])
+

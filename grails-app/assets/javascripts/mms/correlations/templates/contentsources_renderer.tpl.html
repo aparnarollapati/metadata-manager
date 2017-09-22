@@ -1,0 +1,13 @@
+<div class="panel panel-filled panel-c-white" >
+	<div class="panel-heading">
+		<a class="panel-toggle" ng-click="toggleCorrelationSC=!toggleCorrelationSC"><i class="fa" ng-class="{'fa-chevron-down': toggleCorrelationSC,'fa-chevron-right': !toggleCorrelationSC}"></i></a> 
+	    <a  href="#" data-inputclass="form-control" ng-bind="contentSource.sortId"  ></a> 
+	    <span data-inputclass="form-control" ng-click="cosc.getContentSources(correlationSource)" editable-select="contentSource.content" e-name="id" e-ng-options="contentItem[0] as contentItem[1] for contentItem in cosc.fullResources track by contentItem[0]" onbeforesave="cosc.updateTCSourceResource(contentSource, $data)">{{contentSource.content.displayTitle}}</span>     
+        <span data-inputclass="form-control" editable-select="contentSource.sourceType" e-name="id" e-ng-options="p.value as p.text for p in cosc.sourceTypes | orderBy:'text'" onbeforesave="cosc.updateTCSourceType(contentSource, $data)">{{contentSource.sourceType}}</span>     
+   	 
+		<a class="pull-right text-right" data-nodrag ng-click="cosc.delete(contentSource)"><i class="fa fa-times"></i></a> 		
+	</div>
+	 <div class="panel-body" ng-show="toggleCorrelationSC">
+       <ng-include src="'correlations/contenttarget_renderer.html'"></ng-include>	       
+	</div> 
+</div>

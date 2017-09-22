@@ -1,0 +1,8 @@
+import hmh.mms.correlation.CorrelationSource
+
+model {
+	Iterable<CorrelationSource> correlationSourceList
+}
+
+json tmpl.correlationSource(correlationSourceList ?: [])
+

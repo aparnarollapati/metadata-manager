@@ -1,0 +1,12 @@
+import hmh.mms.level.FifthLevel
+
+model {
+	FifthLevel fifthLevel
+}
+//  Request the detailed version of these seperately when the user clicks on one
+json g.render(fifthLevel, [excludes:['fourthLevel']]){
+
+    //version "toplevelslist"
+    //templateName "fourthLevel/_fifthLevel.gson"
+
+}

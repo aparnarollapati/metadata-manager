@@ -1,0 +1,53 @@
+<div class="panel panel-filled panel-c-white">
+    <div class="panel-heading">
+        <div class="panel-tools" ng-show="!editableSecondContentForm.$visible && !editableSecondLevelCRForm.$visible">
+            <div class="btn-group pull-right text-right">
+                <!-- button to show form -->
+                <button class="btn btn-default btn-sm" type="button" ng-click="contentc.editContent(true, secondLevelItem, false);editableSecondContentForm.$show()">
+                    <i class="fa fa-plus-square-o"></i> Add Resource
+                </button>
+            </div>
+        </div>
+        <span><a class="panel-toggle" ng-show="secondlc.fullSecondLevel[secondLevelItem.id].content[0] != null" ng-click="toggleSecondContent=!toggleSecondContent"><i class="fa" ng-class="{'fa-chevron-down':toggleSecondContent ,'fa-chevron-right': !toggleSecondContent}"></i></a> Resources</span>
+    </div>
+    <!-- Content List -->
+    <div class="panel-body" ng-show="toggleSecondContent && secondlc.fullSecondLevel[secondLevelItem.id].content[0] != null && !editableContentForm.$visible">
+        <div class="table-responsive" ng-show="!editableSecondContentForm.$visible && !editableSecondLevelCRForm.$visible && !pc.accordian.toggleSecondContentTable[secondLevelItem.id]">
+            <table datatable="ng" dt-options="contentc.dtOptions" dt-column-defs="contentc.dtColumnDefs" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Lesson Plan</th>
+                        <th>Instructional Segment</th>
+                        <th>Strand</th>
+                        <th>Sort ID</th>
+                        <th>Display Title</th>
+                        <th>Component</th>
+                        <th class="text-right">edit</th>
+                        <th class="text-right">clone</th>
+                        <th class="text-right">delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-model="secondlc.fullSecondLevel[secondLevelItem.id].content" ng-repeat="contentItem in secondlc.fullSecondLevel[secondLevelItem.id].content | orderBy:['lessonPlan.sortId', 'segment.hierarchy', 'strand.hierarchy', 'sortId'] track by $index" >
+
+                    <td><a class="panel-toggle" ng-click="contentc.updateCurrentFullContentId('',contentItem.id, null);pc.accordian.toggleSecondContentList[contentItem.id]=!pc.accordian.toggleSecondContentList[contentItem.id];pc.accordian.toggleSecondContentTable[secondLevelItem.id]=!pc.accordian.toggleSecondContentTable[secondLevelItem.id]"><i class="fa" ng-class="{'fa-chevron-down':pc.accordian.toggleSecondContentTable[secondLevelItem.id] ,'fa-chevron-right': !pc.accordian.toggleSecondContentTable[secondLevelItem.id]}"></i></a></td>
+                    <td>{{contentItem.lessonPlan.title}}</td>
+                    <td>{{contentItem.segment.title}}</td>
+                    <td>{{contentItem.strand.title}}</td>
+                    <td>{{contentItem.sortId}}</td>
+                    <td>{{contentItem.displayTitle}}</td>
+                    <td>{{contentItem.component.component}}</td>
+                    <td class="text-right"><a href="#secondLevelContentForm" ng-click="contentc.updateCurrentFullContentId('edit',contentItem.id, secondLevelItem);editableSecondContentForm.$show()"><i class="fa fa-edit"></i></a></td>
+
+                    <td class="text-right"><a href="#secondLevelContentForm" ng-click="contentc.updateCurrentFullContentId('clone', contentItem.id, secondLevelItem);editableSecondContentForm.$show()"><i class="fa fa-clone"></i></a></td>
+                    
+                    <td><a class="pull-right" data-nodrag ng-click="contentc.delete(contentItem, 'secondlevel')" delete-confirm-click="Are you sure you want to delete this Second-Level resource?"><i class="fa fa-times"></i></a></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Content List End  -->
+</div>

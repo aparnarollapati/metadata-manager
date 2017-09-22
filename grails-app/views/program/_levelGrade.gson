@@ -1,0 +1,8 @@
+import hmh.mms.level.LevelGrade
+
+model {
+	LevelGrade levelGrade
+}
+
+// only show grades
+json g.render(levelGrade, [includes:['id','grade','guiOrdering']])

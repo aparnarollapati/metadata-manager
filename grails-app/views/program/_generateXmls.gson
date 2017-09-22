@@ -1,0 +1,7 @@
+import hmh.mms.GenerateXmls
+
+model {
+	GenerateXmls generateXmls
+}
+
+json g.render(generateXmls)

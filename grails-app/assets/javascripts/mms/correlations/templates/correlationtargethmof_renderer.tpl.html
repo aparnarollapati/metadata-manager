@@ -1,0 +1,75 @@
+<div class="panel panel-filled panel-c-white"
+	ng-controller="CorrelationTargetController as ctc">
+	<div class="panel-heading">
+		<div class="panel-tools" ng-show="!editableTPHMOFForm.$visible">
+			<div class="btn-group pull-right text-right">
+				<!-- button to show form -->
+				<button class="btn btn-default btn-sm" type="button"
+					ng-show="correlationSource.correlationTargets[0]==null"
+					ng-click="editableTPHMOFForm.$show();ctc.getProductComponents(correlationSource);">
+					<i class="fa fa-plus-square-o"></i> Add Target Component
+				</button>
+			</div>
+		</div>
+        <span>
+    		<a class="panel-toggle" ng-show="correlationSource.correlationTargets[0]!=null"
+    		ng-click="toggleCTargetHMOF=!toggleCTargetHMOF">
+            <i class="fa" 
+            ng-class="{'fa-chevron-down': toggleCTargetHMOF,'fa-chevron-right': !toggleCTargetHMOF}"></i></a>
+    		Target Component
+        </span>
+	</div>
+	<form class="form-horizontal" editable-form name="editableTPHMOFForm"
+		ng-show="editableTPHMOFForm.$visible"
+		ng-submit="ctc.addTargetProduct(correlationSource);editableTPHMOFForm.$cancel();">
+
+		<div class="row">
+			<div class="col-md-5">
+				<div class="form-group required">
+					<label for="programItem.id" class="col-sm-4 control-label">Target
+						Component</label>
+					<div class="col-md-8">
+						<select name="correlationPC" class="form-control"
+							ng-model="ctc.newTProductComponent"
+							ng-options="component as (component.component + ' (' + component.componentType + ') ' + 'H' + component.componentHierarchy + '-TT' + component.toolType) for component in ctc.fullTComponents track by component"
+							required>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="btn-group pull-right text-right"
+					ng-show="editableTPHMOFForm.$visible">
+					<!-- buttons to submit / cancel form -->
+					<button type="submit" class="btn btn-primary">
+						<i class="fa pe-7s-plus"></i> Save
+					</button>
+					<button type="button" class="btn btn-default"
+						ng-click="editableTPHMOFForm.$cancel()">
+						<i class="fa pe-7s-close-circle"></i> Cancel
+					</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel-body"
+		ng-show="toggleCTargetHMOF && !editableTPHMOFForm.$visible">
+		<div class="table-responsive" ng-show="!editableTPHMOFForm.$visible">
+			<table id="componentTable" class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>ISBN</th>
+						<th>Title</th>
+						<th>Component</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-model="correlationSource.correlationTargets"
+						ng-repeat="correlationTarget in correlationSource.correlationTargets | orderBy:'title' track by $index"
+						ng-include="'correlations/correlationtargetshmof_renderer.html'" />
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

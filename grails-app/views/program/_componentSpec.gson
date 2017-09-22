@@ -1,0 +1,10 @@
+import hmh.mms.ComponentSpec
+
+model {
+	ComponentSpec componentSpec
+}
+
+json g.render(componentSpec){
+	id componentSpec.id      
+	//productId componentSpec.product.id
+}

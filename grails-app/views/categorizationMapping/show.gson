@@ -1,0 +1,7 @@
+import hmh.mms.mapping.CategorizationMapping
+
+model {
+	CategorizationMapping categorizationMapping
+}
+
+json tmpl.categorizationMapping(categorizationMapping)

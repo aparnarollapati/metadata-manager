@@ -1,0 +1,7 @@
+import hmh.mms.mapping.StrandMapping
+
+model {
+	StrandMapping strandMapping
+}
+
+json tmpl.strandMapping(strandMapping)

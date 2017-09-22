@@ -1,0 +1,8 @@
+import hmh.mms.Content
+
+model {
+	Iterable<Content> contentList
+}
+
+json tmpl.content(contentList ?: [])
+
