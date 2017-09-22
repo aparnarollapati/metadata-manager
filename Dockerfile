@@ -10,5 +10,9 @@ VOLUME ["/audit"]
 # Allow the host to use gradle cache, otherwise gradle will always download plugins & artifacts on every build
 VOLUME ["/root/.gradle/caches/"]
 
-#ENV HOME /root
+# Copy the current directory contents into the container at /app
+ADD . /audit
+
+# Run cmd
+CMD [ "sh", "-c", "./gradlew" ]
 
